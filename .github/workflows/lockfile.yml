@@ -1,0 +1,30 @@
+name: Lockfile
+
+# npm на Windows не записывает в package-lock.json опциональные wasm-зависимости
+# (@emnapi/*), и `npm ci` на Linux падает. Lock-файл пересобирается здесь,
+# скачивается артефактом и коммитится.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - run: rm -f package-lock.json
+      - run: npm install --package-lock-only --no-audit --no-fund
+      - name: Check that a clean install works
+        run: npm ci --no-audit --no-fund
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: package-lock
+          path: package-lock.json

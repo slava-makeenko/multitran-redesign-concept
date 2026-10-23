@@ -38,14 +38,16 @@ jobs:
       # Каталоги с подчёркиванием (_next) не должны проходить через Jekyll
       - run: touch out/.nojekyll
 
+      # Pages на бесплатном тарифе доступен только публичным репозиториям:
+      # пока репозиторий приватный, CI проверяет и собирает, но не публикует
       - uses: actions/upload-pages-artifact@v5
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && !github.event.repository.private
         with:
           path: out
 
   deploy:
     needs: check-and-build
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && !github.event.repository.private
     runs-on: ubuntu-latest
     permissions:
       pages: write
