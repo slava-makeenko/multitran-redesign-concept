@@ -26,7 +26,9 @@ npm run dev
 | `npm run typecheck` | Типы маршрутов и TypeScript |
 | `npm run format:check` | Prettier |
 
-CI (`.github/workflows/ci.yml`) на каждый push проверяет линтер, типы и форматирование, собирает сайт и публикует его на GitHub Pages из `main`.
+CI (`.github/workflows/ci.yml`) на каждый push проверяет линтер, типы и форматирование и собирает сайт. Публикация на GitHub Pages из `main` включается, когда репозиторий публичный: на бесплатном тарифе Pages для приватных репозиториев недоступен.
+
+Lock-файл обновляется через ручной workflow **Lockfile**: npm на Windows не записывает опциональные wasm-зависимости, и `npm ci` на Linux падает. Workflow пересобирает `package-lock.json` на ubuntu и отдаёт его артефактом.
 
 ## Статус
 
