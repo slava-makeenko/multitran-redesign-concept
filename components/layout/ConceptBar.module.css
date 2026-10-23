@@ -1,0 +1,19 @@
+.bar {
+  background: var(--ink);
+  color: #c9d2e3;
+  font-size: 13px;
+  text-align: center;
+  padding: 7px 16px;
+}
+
+.bar b {
+  color: #fff;
+  font-weight: 600;
+}
+
+@media (max-width: 767px) {
+  .bar {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}

@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+design/
+docs/
+tools/
+AGENTS.md
+README.md
+package-lock.json
+next-env.d.ts

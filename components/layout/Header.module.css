@@ -1,0 +1,106 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  height: 68px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  font-weight: 700;
+  font-size: 21px;
+  letter-spacing: -0.02em;
+}
+
+.mark {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 20px;
+}
+
+.nav {
+  display: flex;
+  gap: 6px;
+}
+
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 12px;
+  border-radius: 8px;
+  color: var(--ink-2);
+  font-weight: 500;
+  font-size: 15px;
+  transition: background-color var(--dur-press) var(--ease-standard);
+}
+
+.navLink:hover {
+  background: var(--chip);
+}
+
+.navLink[aria-current='page'] {
+  color: var(--accent-ink);
+  background: var(--accent-weak);
+}
+
+.spacer {
+  flex: 1;
+}
+
+.login {
+  display: inline-flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: var(--surface);
+  font-weight: 600;
+  font-size: 15px;
+  transition: background-color var(--dur-press) var(--ease-standard);
+}
+
+.login:hover {
+  background: var(--chip);
+}
+
+/* Телефон: меню и вход переедут в выдвижное меню на этапе 3, пока скрыты */
+@media (max-width: 767px) {
+  .row {
+    height: 60px;
+    gap: 12px;
+  }
+
+  .logo {
+    font-size: 19px;
+  }
+
+  .mark {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+  }
+
+  .nav,
+  .login {
+    display: none;
+  }
+}
