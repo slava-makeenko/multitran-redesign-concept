@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<title>Мультитран — до и после</title>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { width: 1280px; padding: 40px; background: #eef1f6; color: #141c2b; font: 15px/1.45 'Golos Text', system-ui, sans-serif; }
+  h1 { font-size: 30px; letter-spacing: -0.02em; }
+  .lead { color: #4a5368; margin: 6px 0 28px; }
+  .block { background: #fff; border-radius: 16px; padding: 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(20,28,43,.08); }
+  .block h2 { font-size: 20px; margin-bottom: 4px; }
+  .facts { color: #4a5368; margin-bottom: 16px; }
+  .pair { display: flex; gap: 24px; align-items: flex-start; }
+  .col { display: flex; flex-direction: column; gap: 8px; }
+  .tag { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+  .tag--before { color: #b4321f; }
+  .tag--after { color: #17733f; }
+  img { display: block; border: 1px solid #d9dee8; border-radius: 10px; object-fit: cover; object-position: top; background: #fff; }
+  .phone img { width: 260px; height: 563px; }
+  .desk img { width: 552px; height: 345px; }
+  .notes { flex: 1; padding-top: 28px; }
+  .notes ul { padding-left: 18px; }
+  .notes li + li { margin-top: 6px; }
+  .num { font-weight: 700; }
+  .disclaimer { color: #687185; font-size: 13px; margin-top: 8px; }
+</style>
+</head>
+<body>
+  <h1>Мультитран: до и после</h1>
+  <p class="lead">Неофициальный концепт редизайна. Слева — сайт 23.10.2026, справа — макет. Переводы в макете учебные.</p>
+
+  <div class="block">
+    <h2>Страница слова на телефоне</h2>
+    <div class="pair">
+      <div class="col phone"><span class="tag tag--before">До</span><img src="../docs/before/term-mobile.png"></div>
+      <div class="col phone"><span class="tag tag--after">После</span><img src="mockups/term-mobile.png"></div>
+      <div class="notes">
+        <ul>
+          <li>Текст за краем экрана: <span class="num">57 %</span> → <span class="num">0</span></li>
+          <li>Целей касания меньше 24 px: <span class="num">86 %</span> → <span class="num">0</span></li>
+          <li>Сначала основные значения, тематики свёрнуты со счётчиком</li>
+          <li>Фильтр тематик — шторкой с флажками</li>
+          <li>Место под рекламу 320 × 100 зарезервировано — без сдвигов вёрстки</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>Страница слова на десктопе</h2>
+    <div class="pair">
+      <div class="col desk"><span class="tag tag--before">До</span><img src="../docs/before/term-desktop.png"></div>
+      <div class="col desk"><span class="tag tag--after">После</span><img src="mockups/term-desktop.png"></div>
+    </div>
+    <p class="disclaimer">Заголовков h2: 0 → 9 (основные значения, тематики, боковые блоки) — по тематикам можно перемещаться со скринридера. Место под рекламу 300 × 250 зарезервировано справа.</p>
+  </div>
+
+  <div class="block">
+    <h2>Главная</h2>
+    <div class="pair">
+      <div class="col desk"><span class="tag tag--before">До</span><img src="../docs/before/home-desktop.png"></div>
+      <div class="col desk"><span class="tag tag--after">После</span><img src="mockups/home-desktop-search.png"></div>
+    </div>
+    <p class="disclaimer">Поиск — главный элемент: пара языков с переключателем, подсказки с переводом и историей, управление с клавиатуры.</p>
+  </div>
+</body>
+</html>

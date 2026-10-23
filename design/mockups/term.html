@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>approach — концепт страницы перевода</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=PT+Serif:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .header__search { flex: 1; max-width: 560px; }
+  .mobile-search { padding-bottom: 12px; }
+  .filters__btn { margin-left: auto; }
+  @media (max-width: 767px) {
+    .header__row { border-bottom: 0; }
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-swap" viewBox="0 0 24 24"><path d="M7 7h12m0 0-3-3m3 3-3 3M17 17H5m0 0 3 3m-3-3 3-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-speaker" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 4 2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.6-4.8 2.6.9-5.4-3.9-3.8 5.4-.8L12 4Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+</svg>
+
+<div class="concept-bar"><b>Неофициальный концепт редизайна.</b> Не связан с Мультитраном, данные в примерах учебные.</div>
+
+<header class="header">
+  <div class="container header__row">
+    <a class="logo" href="home.html"><span class="logo__mark">м</span><span class="only-desktop">мультитран</span><span class="only-mobile">мультитран</span></a>
+    <form class="search search--sm header__search only-desktop" onsubmit="return false">
+      <div class="pair">
+        <button class="pair__lang" type="button">EN</button>
+        <button class="pair__swap" type="button" aria-label="Поменять языки местами"><svg width="16" height="16"><use href="#i-swap"/></svg></button>
+        <button class="pair__lang" type="button">RU</button>
+      </div>
+      <input class="search__input" type="search" value="approach" aria-label="Что перевести">
+      <button class="btn btn--primary search__submit" type="submit"><svg width="18" height="18"><use href="#i-search"/></svg></button>
+    </form>
+    <nav class="nav only-desktop"><a href="#">Форум</a><a href="#">Скачать</a></nav>
+    <span class="header__spacer only-mobile"></span>
+    <a class="btn btn--ghost only-desktop" href="#">Войти</a>
+    <button class="icon-btn icon-btn--line only-mobile" aria-label="Меню"><svg width="22" height="22"><use href="#i-menu"/></svg></button>
+  </div>
+  <div class="container mobile-search only-mobile">
+    <form class="search search--sm" onsubmit="return false">
+      <div class="pair">
+        <button class="pair__lang" type="button">EN</button>
+        <button class="pair__swap" type="button" aria-label="Поменять языки местами"><svg width="14" height="14"><use href="#i-swap"/></svg></button>
+        <button class="pair__lang" type="button">RU</button>
+      </div>
+      <input class="search__input" type="search" value="approach" aria-label="Что перевести">
+    </form>
+  </div>
+</header>
+
+<main class="container term-layout">
+  <div>
+    <div class="crumbs">Англо-русский словарь</div>
+    <div class="entry-head">
+      <h1 class="entry-head__word">approach</h1>
+      <span class="entry-head__ipa">[əˈprəʊtʃ] <button class="audio" aria-label="Произношение"><svg width="20" height="20"><use href="#i-speaker"/></svg></button></span>
+      <span class="entry-head__actions">
+        <button class="btn btn--ghost"><svg width="18" height="18"><use href="#i-star"/></svg>В избранное</button>
+        <button class="btn btn--soft"><svg width="18" height="18"><use href="#i-plus"/></svg>Добавить перевод</button>
+      </span>
+    </div>
+
+    <div class="tabs" role="tablist">
+      <button class="tab is-active" role="tab" aria-selected="true">Существительное<span class="tab__count">24</span></button>
+      <button class="tab" role="tab">Глагол<span class="tab__count">9</span></button>
+      <button class="tab" role="tab">Фразы<span class="tab__count">40</span></button>
+      <button class="tab" role="tab">Форум<span class="tab__count">3</span></button>
+    </div>
+
+    <section class="card main-senses" aria-label="Основные значения">
+      <h2 class="main-senses__label">Основные значения</h2>
+      <ol class="senses">
+        <li class="sense"><span class="sense__n">1</span><span><span class="sense__t">подход</span> <span class="sense__g">к задаче, к человеку</span></span></li>
+        <li class="sense"><span class="sense__n">2</span><span><span class="sense__t">метод, способ</span></span></li>
+        <li class="sense"><span class="sense__n">3</span><span><span class="sense__t">приближение</span> <span class="sense__g">во времени, в пространстве</span></span></li>
+        <li class="sense"><span class="sense__n">4</span><span><span class="sense__t">подступ, подъезд</span> <span class="sense__g">путь к месту</span></span></li>
+        <li class="sense"><span class="sense__n">5</span><span><span class="sense__t">обращение</span> <span class="sense__g">с просьбой, предложением</span></span></li>
+        <li class="sense"><span class="sense__n">6</span><span><span class="sense__t">заход на посадку</span> <span class="sense__g">авиа</span></span></li>
+      </ol>
+    </section>
+
+    <div class="filters">
+      <span class="filters__label only-desktop">Тематики</span>
+      <div class="chips only-desktop">
+        <button class="chip is-active">Все <span class="chip__count">24</span></button>
+        <button class="chip">Общая лексика <span class="chip__count">8</span></button>
+        <button class="chip">Авиация <span class="chip__count">5</span></button>
+        <button class="chip">Военное дело <span class="chip__count">3</span></button>
+        <button class="chip">Техника <span class="chip__count">3</span></button>
+        <button class="chip chip--line">Ещё 3</button>
+      </div>
+      <span class="filters__label only-mobile">24 перевода в 7 тематиках</span>
+      <button class="btn btn--ghost filters__btn only-mobile"><svg width="18" height="18"><use href="#i-filter"/></svg>Тематики</button>
+    </div>
+
+    <section class="card group" aria-label="Общая лексика">
+      <h2 class="group__h"><button class="group__head" aria-expanded="true"><span class="group__name">Общая лексика</span><span class="group__count">8</span><svg class="group__chev" width="20" height="20"><use href="#i-down"/></svg></button></h2>
+      <div class="group__body">
+        <div class="tr"><div class="tr__main"><span class="tr__t">подход</span> <span class="tr__g">— способ взглянуть на задачу</span><div class="tr__ex"><i>a fresh approach to the problem</i> — свежий подход к задаче</div></div><div class="tr__side"><span class="tr__by">nadezhda.p</span><button class="tr__copy" aria-label="Копировать"><svg width="16" height="16"><use href="#i-copy"/></svg></button></div></div>
+        <div class="tr"><div class="tr__main"><span class="tr__t">метод; способ</span></div><div class="tr__side"><span class="tr__by">alex_term</span><button class="tr__copy" aria-label="Копировать"><svg width="16" height="16"><use href="#i-copy"/></svg></button></div></div>
+        <div class="tr"><div class="tr__main"><span class="tr__t">приближение</span> <span class="tr__g">— наступление чего-либо</span><div class="tr__ex"><i>the approach of spring</i> — приближение весны</div></div><div class="tr__side"><span class="tr__by">alex_term</span><button class="tr__copy" aria-label="Копировать"><svg width="16" height="16"><use href="#i-copy"/></svg></button></div></div>
+        <div class="tr"><div class="tr__main"><span class="tr__t">подступ; подход</span> <span class="tr__g">— путь к месту</span><div class="tr__ex"><i>all approaches to the village were blocked</i> — все подходы к деревне перекрыли</div></div><div class="tr__side"><span class="tr__by">SkyRunner</span><button class="tr__copy" aria-label="Копировать"><svg width="16" height="16"><use href="#i-copy"/></svg></button></div></div>
+        <div class="tr"><div class="tr__main"><span class="tr__t">подъезд</span> <span class="tr__g">— дорога к зданию, мосту</span></div><div class="tr__side"><span class="tr__by">nadezhda.p</span><button class="tr__copy" aria-label="Копировать"><svg width="16" height="16"><use href="#i-copy"/></svg></button></div></div>
+        <div class="tr"><div class="tr__main"><span class="tr__t">обращение</span> <span class="tr__g">— с просьбой или предложением</span><div class="tr__ex"><i>to make an approach to the bank</i> — обратиться в банк</div></div><div class="tr__side"><span class="tr__by">vlad.k</span><button class="tr__copy" aria-label="Копировать"><svg width="16" height="16"><use href="#i-copy"/></svg></button></div></div>
+        <button class="btn btn--soft more-groups">Показать ещё 2 перевода</button>
+      </div>
+    </section>
+
+    <div class="ad-slot ad-slot--feed only-mobile" aria-hidden="true"><span><b>Реклама</b>320 × 100</span></div>
+
+    <section class="card group" aria-label="Авиация">
+      <h2 class="group__h"><button class="group__head" aria-expanded="true"><span class="group__name">Авиация</span><span class="group__count">5</span><svg class="group__chev" width="20" height="20"><use href="#i-down"/></svg></button></h2>
+      <div class="group__body">
+        <div class="tr"><div class="tr__main"><span class="tr__t">заход на посадку</span><div class="tr__ex"><i>the aircraft is on final approach</i> — самолёт на посадочной прямой</div></div><div class="tr__side"><span class="tr__by">SkyRunner</span><button class="tr__copy" aria-label="Копировать"><svg width="16" height="16"><use href="#i-copy"/></svg></button></div></div>
+        <div class="tr"><div class="tr__main"><span class="tr__t">подход к аэродрому</span></div><div class="tr__side"><span class="tr__by">SkyRunner</span><button class="tr__copy" aria-label="Копировать"><svg width="16" height="16"><use href="#i-copy"/></svg></button></div></div>
+        <div class="tr"><div class="tr__main"><span class="tr__t">траектория захода</span> <span class="tr__g">— на посадку</span></div><div class="tr__side"><span class="tr__by">ilya_avia</span><button class="tr__copy" aria-label="Копировать"><svg width="16" height="16"><use href="#i-copy"/></svg></button></div></div>
+        <button class="btn btn--soft more-groups">Показать ещё 2 перевода</button>
+      </div>
+    </section>
+
+    <section class="card group is-collapsed"><h2 class="group__h"><button class="group__head" aria-expanded="false"><span class="group__name">Военное дело</span><span class="group__count">3</span><svg class="group__chev" width="20" height="20"><use href="#i-down"/></svg></button></h2></section>
+    <section class="card group is-collapsed"><h2 class="group__h"><button class="group__head" aria-expanded="false"><span class="group__name">Техника</span><span class="group__count">3</span><svg class="group__chev" width="20" height="20"><use href="#i-down"/></svg></button></h2></section>
+    <section class="card group is-collapsed"><h2 class="group__h"><button class="group__head" aria-expanded="false"><span class="group__name">Медицина</span><span class="group__count">2</span><svg class="group__chev" width="20" height="20"><use href="#i-down"/></svg></button></h2></section>
+    <button class="btn btn--ghost more-groups">Ещё 2 тематики · 3 перевода</button>
+  </div>
+
+  <aside class="aside">
+    <section class="card aside-card">
+      <h2 class="aside-card__title">Фразы с approach</h2>
+      <div class="phrase"><span class="phrase__en">approach road</span><span class="phrase__ru">подъездная дорога</span></div>
+      <div class="phrase"><span class="phrase__en">approach lights</span><span class="phrase__ru">огни приближения</span></div>
+      <div class="phrase"><span class="phrase__en">landing approach</span><span class="phrase__ru">заход на посадку</span></div>
+      <div class="phrase"><span class="phrase__en">approach angle</span><span class="phrase__ru">угол въезда</span></div>
+      <a class="aside-card__more" href="#">Все 40 фраз</a>
+    </section>
+    <div class="ad-slot ad-slot--rect only-desktop" aria-hidden="true"><span><b>Реклама</b>300 × 250</span></div>
+    <section class="card aside-card">
+      <h2 class="aside-card__title">На форуме</h2>
+      <div class="phrase"><span class="phrase__en" style="font-weight:500">«approach» в научной статье: «подход» или «метод»?</span></div>
+      <a class="aside-card__more" href="#">3 обсуждения</a>
+    </section>
+    <section class="card aside-card contribute">
+      <h2 class="aside-card__title">Знаете перевод точнее?</h2>
+      <p>Словарь пополняют переводчики. Добавьте свой вариант с тематикой и примером.</p>
+      <a class="btn btn--primary" href="#"><svg width="18" height="18"><use href="#i-plus"/></svg>Добавить перевод</a>
+    </section>
+  </aside>
+</main>
+
+<footer class="footer">
+  <div class="container footer__row">
+    <span>Концепт редизайна для портфолио. Названия и данные принадлежат правообладателям.</span>
+  </div>
+</footer>
+
+<div id="sheet" hidden>
+  <div class="scrim"></div>
+  <div class="sheet" role="dialog" aria-label="Тематики">
+    <div class="sheet__grab"></div>
+    <div class="sheet__head"><span class="sheet__title">Тематики</span><button class="icon-btn" aria-label="Закрыть"><svg width="22" height="22"><use href="#i-x"/></svg></button></div>
+    <div class="check is-on"><span class="check__box"><svg width="16" height="16"><use href="#i-check"/></svg></span>Общая лексика<span class="check__count">8</span></div>
+    <div class="check is-on"><span class="check__box"><svg width="16" height="16"><use href="#i-check"/></svg></span>Авиация<span class="check__count">5</span></div>
+    <div class="check"><span class="check__box"></span>Военное дело<span class="check__count">3</span></div>
+    <div class="check"><span class="check__box"></span>Техника<span class="check__count">3</span></div>
+    <div class="check"><span class="check__box"></span>Медицина<span class="check__count">2</span></div>
+    <div class="check"><span class="check__box"></span>Гольф<span class="check__count">2</span></div>
+    <div class="check"><span class="check__box"></span>Математика<span class="check__count">1</span></div>
+    <div class="sheet__actions"><button class="btn btn--ghost">Сбросить</button><button class="btn btn--primary">Показать 13 переводов</button></div>
+  </div>
+</div>
+
+<script>
+  // Состояния для снимков: ?sheet=1 — открытая шторка тематик (телефон)
+  if (new URLSearchParams(location.search).has('sheet')) {
+    document.getElementById('sheet').hidden = false;
+  }
+</script>
+</body>
+</html>
