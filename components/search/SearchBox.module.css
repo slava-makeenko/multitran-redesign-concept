@@ -34,6 +34,7 @@
 }
 
 .swap {
+  position: relative;
   display: grid;
   place-items: center;
   width: 30px;
@@ -41,6 +42,13 @@
   border-radius: 50%;
   background: var(--accent-weak);
   color: var(--accent);
+}
+
+/* Зона нажатия 44 × 44 без увеличения самого кружка */
+.swap::after {
+  content: '';
+  position: absolute;
+  inset: -7px;
 }
 
 .input {
@@ -82,6 +90,10 @@
   .swap {
     width: 36px;
     height: 36px;
+  }
+
+  .swap::after {
+    inset: -4px;
   }
 
   .submit {

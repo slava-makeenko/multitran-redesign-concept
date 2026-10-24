@@ -73,3 +73,21 @@ export const FilterIcon = (p: IconProps) => (
     <path d="M4 6h16M7 12h10M10 18h4" />
   </Icon>
 );
+
+export const CloseIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M6 6l12 12M18 6 6 18" />
+  </Icon>
+);
+
+export const MenuIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M4 7h16M4 12h16M4 17h16" />
+  </Icon>
+);
+
+export const CheckIcon = (p: IconProps) => (
+  <Icon strokeWidth={3} {...p}>
+    <path d="m5 12.5 4.5 4.5L19 7.5" />
+  </Icon>
+);

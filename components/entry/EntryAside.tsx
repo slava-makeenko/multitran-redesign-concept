@@ -7,6 +7,7 @@ import { PAIRS } from '@/lib/dictionary';
 import { count, DISCUSSION_FORMS, PHRASE_FORMS } from '@/lib/plural';
 import type { Entry } from '@/lib/types';
 
+import { TabLink } from './TabLink';
 import styles from './entry.module.css';
 
 const VISIBLE_PHRASES = 4;
@@ -33,9 +34,9 @@ export function EntryAside({ entry }: { entry: Entry }) {
             ))}
           </ul>
           {entry.phrases.length > VISIBLE_PHRASES && (
-            <a className={styles.asideMore} href="#entry-tabs">
+            <TabLink className={styles.asideMore} tab="phrases">
               Все {count(entry.phrases.length, PHRASE_FORMS)}
-            </a>
+            </TabLink>
           )}
         </section>
       )}

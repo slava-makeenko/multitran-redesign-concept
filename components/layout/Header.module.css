@@ -89,7 +89,38 @@
   background: var(--chip);
 }
 
-/* Телефон: меню и вход переедут в выдвижное меню на этапе 3, пока скрыты */
+/* Мобильное меню: кнопка в шапке и ссылки в шторке */
+.menuButton {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--ink-2);
+}
+
+.menuList {
+  margin: 4px 0 12px;
+}
+
+.menuLink {
+  display: flex;
+  align-items: center;
+  min-height: 52px;
+  border-bottom: 1px solid var(--line);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.menuLogin {
+  margin-top: 4px;
+  height: 52px;
+  font-size: 16px;
+}
+
+/* Телефон: меню и вход — в шторке по кнопке «Меню» */
 @media (max-width: 767px) {
   .row {
     height: 60px;

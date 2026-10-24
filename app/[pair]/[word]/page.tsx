@@ -1,25 +1,25 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { Fragment } from 'react';
 
 import { EntryAside } from '@/components/entry/EntryAside';
 import { EntryHeader } from '@/components/entry/EntryHeader';
+import { EntryTabs, type TabInfo } from '@/components/entry/EntryTabs';
+import { ForumList } from '@/components/entry/ForumList';
 import { MainSenses } from '@/components/entry/MainSenses';
-import { PosTabs } from '@/components/entry/PosTabs';
-import { SubjectFilter } from '@/components/entry/SubjectFilter';
-import { SubjectGroupCard } from '@/components/entry/SubjectGroupCard';
+import { PhrasesList } from '@/components/entry/PhrasesList';
+import { SubjectBrowser } from '@/components/entry/SubjectBrowser';
 import { PageShell } from '@/components/layout/PageShell';
 import { SearchBox } from '@/components/search/SearchBox';
-import { AdSlot } from '@/components/ui/AdSlot';
-import ui from '@/components/ui/ui.module.css';
-import { ENTRIES, getEntry, PAIRS, sortedGroups } from '@/lib/dictionary';
-import { count, SUBJECT_FORMS, TRANSLATION_FORMS } from '@/lib/plural';
+import {
+  countItems,
+  ENTRIES,
+  getEntry,
+  PAIRS,
+  POS_LABELS,
+  sortedGroups,
+} from '@/lib/dictionary';
 
 import styles from './page.module.css';
-
-/** Сколько тематик раскрыто сразу и сколько показано до «Ещё N тематик» */
-const OPEN_GROUPS = 2;
-const VISIBLE_GROUPS = 5;
 
 // Только статьи из data/: остальные адреса — 404 (статический экспорт)
 export const dynamicParams = false;
@@ -51,13 +51,38 @@ export default async function EntryPage({
   if (!entry) notFound();
 
   const { sourceLang } = PAIRS[entry.pair];
-  const [part] = entry.parts;
-  const groups = sortedGroups(part);
-  const hiddenGroups = groups.slice(VISIBLE_GROUPS);
-  const hiddenItems = hiddenGroups.reduce(
-    (sum, group) => sum + group.items.length,
-    0,
-  );
+  const defaultPos = entry.parts[0].id;
+
+  const tabs: TabInfo[] = [
+    ...entry.parts.map(part => ({
+      id: part.id,
+      label: POS_LABELS[part.id],
+      count: countItems(part.groups),
+    })),
+    { id: 'phrases', label: 'Фразы', count: entry.phrases.length },
+    { id: 'forum', label: 'Форум', count: entry.forum.length },
+  ];
+
+  // Содержимое всех вкладок рендерится на сервере и лежит в статическом HTML:
+  // клиент только переключает видимость
+  const panels = {
+    ...Object.fromEntries(
+      entry.parts.map(part => [
+        part.id,
+        <>
+          <MainSenses posId={part.id} senses={part.mainSenses} />
+          <SubjectBrowser
+            posId={part.id}
+            defaultPos={defaultPos}
+            groups={sortedGroups(part)}
+            sourceLang={sourceLang}
+          />
+        </>,
+      ]),
+    ),
+    phrases: <PhrasesList phrases={entry.phrases} sourceLang={sourceLang} />,
+    forum: <ForumList topics={entry.forum} />,
+  };
 
   return (
     <PageShell
@@ -66,32 +91,7 @@ export default async function EntryPage({
       <div className={`container ${styles.layout}`}>
         <article className={styles.entry}>
           <EntryHeader entry={entry} />
-          <PosTabs entry={entry} />
-          <MainSenses senses={part.mainSenses} />
-          <SubjectFilter groups={groups} />
-
-          {groups.map((group, index) => (
-            <Fragment key={group.subject}>
-              <SubjectGroupCard
-                group={group}
-                sourceLang={sourceLang}
-                open={index < OPEN_GROUPS}
-                hidden={index >= VISIBLE_GROUPS}
-              />
-              {/* На телефоне реклама — в ленте после первой тематики */}
-              {index === 0 && <AdSlot size="feed" className="only-mobile" />}
-            </Fragment>
-          ))}
-
-          {hiddenGroups.length > 0 && (
-            <button
-              type="button"
-              className={`${ui.btn} ${ui.ghost} ${ui.block}`}
-            >
-              Ещё {count(hiddenGroups.length, SUBJECT_FORMS)} ·{' '}
-              {count(hiddenItems, TRANSLATION_FORMS)}
-            </button>
-          )}
+          <EntryTabs tabs={tabs} panels={panels} />
         </article>
 
         <EntryAside entry={entry} />

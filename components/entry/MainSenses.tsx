@@ -1,14 +1,21 @@
-import type { Sense } from '@/lib/types';
+import type { PosId, Sense } from '@/lib/types';
 
 import styles from './entry.module.css';
 
-export function MainSenses({ senses }: { senses: Sense[] }) {
+export function MainSenses({
+  posId,
+  senses,
+}: {
+  posId: PosId;
+  senses: Sense[];
+}) {
+  const labelId = `main-senses-${posId}`;
   return (
     <section
       className={`${styles.card} ${styles.mainSenses}`}
-      aria-labelledby="main-senses"
+      aria-labelledby={labelId}
     >
-      <h2 id="main-senses" className={styles.mainSensesLabel}>
+      <h2 id={labelId} className={styles.mainSensesLabel}>
         Основные значения
       </h2>
       <ol className={styles.senses}>

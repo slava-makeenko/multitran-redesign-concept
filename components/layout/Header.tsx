@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 
+import { MobileMenu } from './MobileMenu';
 import { NavLinks } from './NavLinks';
 import styles from './Header.module.css';
 
@@ -31,6 +32,7 @@ export function Header({ search }: Props) {
         <Link className={styles.login} href="/about/#not-implemented">
           Войти
         </Link>
+        <MobileMenu />
       </div>
     </header>
   );

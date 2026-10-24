@@ -3,6 +3,7 @@ import { Golos_Text, PT_Serif } from 'next/font/google';
 
 import { ConceptBar } from '@/components/layout/ConceptBar';
 import { Footer } from '@/components/layout/Footer';
+import { Toaster } from '@/components/ui/Toaster';
 
 import './globals.css';
 
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
         <ConceptBar />
         {children}
         <Footer />
+        <Toaster />
       </body>
     </html>
   );

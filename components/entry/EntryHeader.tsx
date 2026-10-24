@@ -1,10 +1,11 @@
 import Link from 'next/link';
 
-import { PlusIcon, SpeakerIcon, StarIcon } from '@/components/ui/icons';
+import { PlusIcon, StarIcon } from '@/components/ui/icons';
 import ui from '@/components/ui/ui.module.css';
 import { PAIRS } from '@/lib/dictionary';
 import type { Entry } from '@/lib/types';
 
+import { PronounceButton } from './PronounceButton';
 import styles from './entry.module.css';
 
 export function EntryHeader({ entry }: { entry: Entry }) {
@@ -20,14 +21,7 @@ export function EntryHeader({ entry }: { entry: Entry }) {
         {entry.ipa && (
           <span className={styles.ipa}>
             <span aria-label={`Транскрипция: ${entry.ipa}`}>[{entry.ipa}]</span>
-            {/* Произношение подключается на этапе 3 */}
-            <button
-              type="button"
-              className={styles.audio}
-              aria-label={`Произношение слова ${entry.word}`}
-            >
-              <SpeakerIcon size={20} />
-            </button>
+            <PronounceButton text={entry.word} lang={pair.sourceLang} />
           </span>
         )}
         <span className={styles.actions}>

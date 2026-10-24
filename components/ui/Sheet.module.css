@@ -1,0 +1,77 @@
+.sheet {
+  position: fixed;
+  inset: auto 0 0;
+  width: 100%;
+  max-width: 100%;
+  max-height: 88dvh;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 20px 20px 0 0;
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow-pop);
+}
+
+.sheet::backdrop {
+  background: rgba(20, 28, 43, 0.45);
+}
+
+/* На десктопе шторка не нужна, но если откроется — по центру и узкая */
+@media (min-width: 768px) {
+  .sheet {
+    inset: auto 0 24px;
+    max-width: 480px;
+    margin: 0 auto;
+    border-radius: 20px;
+  }
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  max-height: 88dvh;
+  padding: 10px 20px calc(20px + env(safe-area-inset-bottom, 0px));
+}
+
+.grab {
+  flex-shrink: 0;
+  width: 40px;
+  height: 5px;
+  margin: 0 auto 10px;
+  border-radius: 3px;
+  background: var(--line-strong);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.close {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
+  border-radius: 10px;
+  color: var(--ink-2);
+}
+
+.body {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.footer {
+  flex-shrink: 0;
+  padding-top: 16px;
+}

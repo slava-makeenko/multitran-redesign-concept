@@ -143,15 +143,15 @@ svg {
 }
 
 /* Части интерфейса только для телефона или только для десктопа */
-.only-mobile {
-  display: none !important;
+/* Прячем только там, где элемент не нужен: display видимого элемента
+   задаёт его собственный класс (flex, grid), а не откат к браузерному */
+@media (min-width: 768px) {
+  .only-mobile {
+    display: none !important;
+  }
 }
 
 @media (max-width: 767px) {
-  .only-mobile {
-    display: revert !important;
-  }
-
   .only-desktop {
     display: none !important;
   }

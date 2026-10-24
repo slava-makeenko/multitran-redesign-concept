@@ -1,28 +1,53 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
+
 import { ChevronDownIcon } from '@/components/ui/icons';
 import ui from '@/components/ui/ui.module.css';
 import { SUBJECTS } from '@/lib/dictionary';
 import { count, plural, TRANSLATION_FORMS } from '@/lib/plural';
-import type { SubjectGroup } from '@/lib/types';
+import type { PosId, SubjectGroup } from '@/lib/types';
 
 import { TranslationRow } from './TranslationRow';
 import styles from './entry.module.css';
 
 /** Сколько переводов видно в открытой группе до «Показать ещё» */
-const VISIBLE_ITEMS = 6;
+export const VISIBLE_ITEMS = 6;
 
 interface Props {
+  posId: PosId;
   group: SubjectGroup;
   sourceLang: string;
   open: boolean;
+  onToggle: () => void;
+  expanded: boolean;
+  onExpand: () => void;
   hidden?: boolean;
+  headingRef?: (element: HTMLButtonElement | null) => void;
 }
 
-// Этап 2: группы отрисованы в нужном состоянии, раскрытие — этап 3.
-// Свёрнутое содержимое уже в HTML, просто скрыто.
-export function SubjectGroupCard({ group, sourceLang, open, hidden }: Props) {
+export function SubjectGroupCard({
+  posId,
+  group,
+  sourceLang,
+  open,
+  onToggle,
+  expanded,
+  onExpand,
+  hidden,
+  headingRef,
+}: Props) {
   const name = SUBJECTS[group.subject];
-  const bodyId = `group-${group.subject}`;
+  const bodyId = `group-${posId}-${group.subject}`;
   const rest = group.items.length - VISIBLE_ITEMS;
+
+  // После «Показать ещё» кнопка исчезает — фокус переносим на первую новую строку
+  const firstRevealed = useRef<HTMLLIElement>(null);
+  const wasExpanded = useRef(expanded);
+  useEffect(() => {
+    if (expanded && !wasExpanded.current) firstRevealed.current?.focus();
+    wasExpanded.current = expanded;
+  }, [expanded]);
 
   return (
     <section
@@ -32,10 +57,12 @@ export function SubjectGroupCard({ group, sourceLang, open, hidden }: Props) {
     >
       <h2 className={styles.groupHeading}>
         <button
+          ref={headingRef}
           type="button"
           className={styles.groupHead}
           aria-expanded={open}
           aria-controls={bodyId}
+          onClick={onToggle}
         >
           <span className={styles.groupName}>{name}</span>{' '}
           <span className={styles.groupCount}>
@@ -49,20 +76,23 @@ export function SubjectGroupCard({ group, sourceLang, open, hidden }: Props) {
         </button>
       </h2>
       <div id={bodyId} className={styles.groupBody} hidden={!open}>
+        {/* Все переводы есть в HTML; сверх шести скрыты до «Показать ещё» */}
         <ul>
           {group.items.map((item, index) => (
             <TranslationRow
               key={`${item.text}-${index}`}
               translation={item}
               sourceLang={sourceLang}
-              hidden={index >= VISIBLE_ITEMS}
+              hidden={!expanded && index >= VISIBLE_ITEMS}
+              rowRef={index === VISIBLE_ITEMS ? firstRevealed : undefined}
             />
           ))}
         </ul>
-        {rest > 0 && (
+        {rest > 0 && !expanded && (
           <button
             type="button"
             className={`${ui.btn} ${ui.soft} ${ui.block} ${styles.more}`}
+            onClick={onExpand}
           >
             Показать ещё {count(rest, TRANSLATION_FORMS)}
           </button>
