@@ -1,0 +1,20 @@
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 28px;
+  align-items: start;
+  padding-top: 32px;
+}
+
+.entry {
+  min-width: 0;
+}
+
+@media (max-width: 767px) {
+  /* minmax(0, 1fr): колонка не растягивается по самому широкому ряду (вкладкам) */
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding-top: 20px;
+  }
+}

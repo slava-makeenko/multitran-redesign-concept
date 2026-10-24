@@ -1,0 +1,97 @@
+/* Кнопки */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 18px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-press) var(--ease-standard),
+    transform var(--dur-press) var(--ease-standard);
+}
+
+.btn:active {
+  transform: scale(var(--press-scale));
+}
+
+.ghost {
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.ghost:hover {
+  background: var(--chip);
+}
+
+.primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.primary:hover {
+  background: var(--accent-ink);
+}
+
+.soft {
+  background: var(--accent-weak);
+  color: var(--accent-ink);
+}
+
+.soft:hover {
+  background: #dce6fb;
+}
+
+.block {
+  width: 100%;
+}
+
+/* Чипы */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: var(--chip);
+  color: var(--ink-2);
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background-color var(--dur-press) var(--ease-standard);
+}
+
+.chip:hover {
+  background: #e3e8f0;
+}
+
+.chipLine {
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+}
+
+.chip[aria-pressed='true'] {
+  background: var(--ink);
+  color: #fff;
+}
+
+.chipCount {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.chip[aria-pressed='true'] .chipCount {
+  color: #b9c2d4;
+}
+
+@media (max-width: 767px) {
+  .chip {
+    height: 40px;
+  }
+}

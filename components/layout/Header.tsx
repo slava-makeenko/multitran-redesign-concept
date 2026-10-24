@@ -1,12 +1,19 @@
 import Link from 'next/link';
+import type { ReactNode } from 'react';
 
 import { NavLinks } from './NavLinks';
 import styles from './Header.module.css';
 
-export function Header() {
+interface Props {
+  search?: ReactNode;
+}
+
+export function Header({ search }: Props) {
   return (
     <header className={styles.header}>
-      <div className={`container ${styles.row}`}>
+      <div
+        className={`container ${styles.row} ${search ? styles.withSearch : ''}`}
+      >
         <Link
           className={styles.logo}
           href="/"
@@ -17,6 +24,8 @@ export function Header() {
           </span>
           мультитран
         </Link>
+        {/* Один и тот же поиск: на десктопе в строке шапки, на телефоне второй строкой */}
+        {search && <div className={styles.search}>{search}</div>}
         <NavLinks />
         <span className={styles.spacer} />
         <Link className={styles.login} href="/about/#not-implemented">

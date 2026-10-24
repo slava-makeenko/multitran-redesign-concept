@@ -1,0 +1,414 @@
+/* Страница слова. Значения перенесены из design/mockups/styles.css */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+/* Заголовок слова */
+.crumbs {
+  margin-bottom: 10px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.titleRow {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.word {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 52px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.ipa {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 6px;
+  color: var(--ink-2);
+  font-size: 18px;
+}
+
+.audio {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--accent-weak);
+  color: var(--accent);
+  transition: background-color var(--dur-press) var(--ease-standard);
+}
+
+.audio:hover {
+  background: #dce6fb;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+  padding-bottom: 2px;
+}
+
+/* Вкладки */
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin: 26px 0 22px;
+  border-bottom: 1px solid var(--line);
+  scroll-margin-top: 90px;
+}
+
+.tab {
+  position: relative;
+  padding: 12px 14px;
+  color: var(--muted);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tab[aria-selected='true'] {
+  color: var(--ink);
+}
+
+.tab[aria-selected='true']::after {
+  content: '';
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: -1px;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: var(--accent);
+}
+
+.tabCount {
+  margin-left: 4px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* Основные значения */
+.mainSenses {
+  padding: 22px 24px;
+}
+
+.mainSensesLabel {
+  margin-bottom: 14px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.senses {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 28px;
+}
+
+.sense {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.senseNumber {
+  flex-shrink: 0;
+  width: 16px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.senseText {
+  color: var(--accent-ink);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.senseGloss {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* Фильтр тематик */
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 26px 0 14px;
+}
+
+.filtersLabel {
+  color: var(--muted);
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filtersButton {
+  margin-left: auto;
+}
+
+/* Группа тематики */
+.group {
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+.groupHeading {
+  font: inherit;
+}
+
+.groupHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 56px;
+  padding: 16px 20px;
+  text-align: left;
+}
+
+.groupName {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.groupCount {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.groupChevron {
+  margin-left: auto;
+  color: var(--muted);
+  transition: transform var(--dur-base) var(--ease-standard);
+}
+
+.groupHead[aria-expanded='false'] .groupChevron {
+  transform: rotate(-90deg);
+}
+
+.groupBody {
+  padding: 0 20px 8px;
+}
+
+.more {
+  margin: 4px 0 8px;
+}
+
+/* Перевод */
+.tr {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 4px 16px;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+}
+
+.trMain {
+  min-width: 0;
+}
+
+.trText {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.trGloss {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.trExample {
+  margin-top: 6px;
+  padding-left: 12px;
+  border-left: 3px solid var(--accent-weak);
+  color: var(--ink-2);
+  font-size: 15px;
+}
+
+.trExample i {
+  color: var(--ink);
+}
+
+.trSide {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding-top: 2px;
+  color: var(--muted);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.copy {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  color: var(--muted);
+  transition:
+    background-color var(--dur-press) var(--ease-standard),
+    color var(--dur-press) var(--ease-standard);
+}
+
+.copy:hover {
+  background: var(--chip);
+  color: var(--ink);
+}
+
+/* Боковая колонка */
+.asideCard {
+  margin-bottom: 16px;
+  padding: 20px;
+}
+
+.asideTitle {
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.phrase {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 0;
+  border-top: 1px solid var(--line);
+  font-size: 15px;
+}
+
+.phrase:first-child {
+  border-top: 0;
+}
+
+.phraseSource {
+  font-weight: 600;
+}
+
+.phraseTarget {
+  color: var(--muted);
+  text-align: right;
+}
+
+.forumTopic {
+  font-size: 15px;
+}
+
+.asideMore {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  margin-top: 6px;
+  color: var(--accent-ink);
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.contribute {
+  background: var(--accent-weak);
+  border-color: transparent;
+}
+
+.contribute p {
+  margin-bottom: 14px;
+  color: var(--ink-2);
+  font-size: 15px;
+}
+
+/* Телефон */
+@media (max-width: 767px) {
+  .word {
+    font-size: 40px;
+  }
+
+  .ipa {
+    padding-bottom: 2px;
+    font-size: 16px;
+  }
+
+  .actions {
+    display: none;
+  }
+
+  .tabs {
+    margin: 18px calc(-1 * var(--gutter)) 16px;
+    padding: 0 12px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .tab {
+    padding: 12px 10px;
+  }
+
+  .mainSenses {
+    padding: 18px 16px;
+  }
+
+  .senses {
+    grid-template-columns: 1fr;
+  }
+
+  .senseText {
+    font-size: 19px;
+  }
+
+  .filters {
+    margin: 20px 0 12px;
+  }
+
+  .groupHead {
+    padding: 14px 16px;
+  }
+
+  .groupBody {
+    padding: 0 16px 6px;
+  }
+
+  .trGloss,
+  .trExample {
+    font-size: 16px;
+  }
+
+  /* На телефоне у перевода остаётся только кнопка копирования справа */
+  .trAuthor {
+    display: none;
+  }
+
+  .trSide {
+    margin: -10px -10px 0 0;
+    padding-top: 0;
+  }
+
+  .copy {
+    width: 44px;
+    height: 44px;
+  }
+
+  .aside {
+    margin-top: 20px;
+  }
+
+  .asideMore {
+    min-height: 44px;
+  }
+}

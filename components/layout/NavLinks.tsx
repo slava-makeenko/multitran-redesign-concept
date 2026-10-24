@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import styles from './Header.module.css';
 
 const LINKS = [
-  { href: '/', label: 'Словари' },
+  { href: '/', label: 'Словари', section: /^\/(en-ru|ru-en)\// },
   { href: '/about/#not-implemented', label: 'Форум' },
   { href: '/about/', label: 'О концепте' },
 ];
@@ -17,15 +17,17 @@ export function NavLinks() {
   return (
     <nav className={styles.nav} aria-label="Основное меню">
       {LINKS.map(link => {
-        const path = link.href.split('#')[0];
         // Форум ведёт на заглушку, поэтому подсвечивается только точный раздел
-        const isCurrent = !link.href.includes('#') && pathname === path;
+        const isPage = !link.href.includes('#') && pathname === link.href;
+        // Страницы слов — внутри раздела «Словари»
+        const isSection = link.section?.test(pathname) ?? false;
+        const current = isPage ? 'page' : isSection ? 'true' : undefined;
         return (
           <Link
             key={link.label}
             href={link.href}
             className={styles.navLink}
-            aria-current={isCurrent ? 'page' : undefined}
+            aria-current={current}
           >
             {link.label}
           </Link>

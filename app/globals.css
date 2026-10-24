@@ -137,6 +137,26 @@ svg {
   border: 0;
 }
 
+/* hidden должен скрывать всегда, даже элементы с display: grid или flex */
+[hidden] {
+  display: none !important;
+}
+
+/* Части интерфейса только для телефона или только для десктопа */
+.only-mobile {
+  display: none !important;
+}
+
+@media (max-width: 767px) {
+  .only-mobile {
+    display: revert !important;
+  }
+
+  .only-desktop {
+    display: none !important;
+  }
+}
+
 /* Ссылка «К содержимому» появляется при фокусе с клавиатуры */
 .skip-link {
   position: absolute;
