@@ -50,9 +50,10 @@ export default async function EntryPage({
   const entry = getEntry(pair, word);
   if (!entry) notFound();
 
-  const { sourceLang } = PAIRS[entry.pair];
+  const { sourceLang, targetLang } = PAIRS[entry.pair];
   const defaultPos = entry.parts[0].id;
 
+  // Пустые «Фразы» и «Форум» не показываем: вкладка с нулём — тупик
   const tabs: TabInfo[] = [
     ...entry.parts.map(part => ({
       id: part.id,
@@ -61,7 +62,7 @@ export default async function EntryPage({
     })),
     { id: 'phrases', label: 'Фразы', count: entry.phrases.length },
     { id: 'forum', label: 'Форум', count: entry.forum.length },
-  ];
+  ].filter(tab => tab.count > 0);
 
   // Содержимое всех вкладок рендерится на сервере и лежит в статическом HTML:
   // клиент только переключает видимость
@@ -70,17 +71,28 @@ export default async function EntryPage({
       entry.parts.map(part => [
         part.id,
         <>
-          <MainSenses posId={part.id} senses={part.mainSenses} />
+          <MainSenses
+            posId={part.id}
+            senses={part.mainSenses}
+            lang={targetLang}
+          />
           <SubjectBrowser
             posId={part.id}
             defaultPos={defaultPos}
             groups={sortedGroups(part)}
             sourceLang={sourceLang}
+            targetLang={targetLang}
           />
         </>,
       ]),
     ),
-    phrases: <PhrasesList phrases={entry.phrases} sourceLang={sourceLang} />,
+    phrases: (
+      <PhrasesList
+        phrases={entry.phrases}
+        sourceLang={sourceLang}
+        targetLang={targetLang}
+      />
+    ),
     forum: <ForumList topics={entry.forum} />,
   };
 

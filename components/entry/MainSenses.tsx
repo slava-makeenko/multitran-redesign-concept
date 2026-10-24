@@ -5,9 +5,12 @@ import styles from './entry.module.css';
 export function MainSenses({
   posId,
   senses,
+  lang,
 }: {
   posId: PosId;
   senses: Sense[];
+  /** Язык переводов: у русско-английских статей значения английские */
+  lang: string;
 }) {
   const labelId = `main-senses-${posId}`;
   return (
@@ -25,7 +28,9 @@ export function MainSenses({
               {index + 1}
             </span>
             <span>
-              <span className={styles.senseText}>{sense.text}</span>
+              <span className={styles.senseText} lang={lang}>
+                {sense.text}
+              </span>
               {sense.gloss && (
                 <span className={styles.senseGloss}> {sense.gloss}</span>
               )}

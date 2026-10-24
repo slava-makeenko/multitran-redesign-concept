@@ -1,0 +1,127 @@
+.page {
+  max-width: 820px;
+  padding-top: 32px;
+}
+
+.title {
+  font-size: 30px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+
+.summary {
+  margin: 8px 0 20px;
+  color: var(--muted);
+}
+
+.card {
+  margin-bottom: 16px;
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.row + .row {
+  border-top: 1px solid var(--line);
+}
+
+.result {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 16px;
+  min-height: 56px;
+  padding: 12px;
+  border-radius: 10px;
+  transition: background-color var(--dur-press) var(--ease-standard);
+}
+
+.result:hover {
+  background: var(--chip);
+}
+
+.resultText {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.resultHint {
+  grid-column: 1;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.kind {
+  grid-column: 2;
+  grid-row: 1;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.guessLabel {
+  padding: 12px 12px 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.empty {
+  margin-bottom: 16px;
+  color: var(--ink-2);
+}
+
+/* Все статьи — и подсказка, и запасной вариант без JS */
+.all {
+  margin-top: 32px;
+}
+
+.allTitle {
+  margin-bottom: 12px;
+  font-size: 18px;
+}
+
+.allList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.allLink {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 56px;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-s);
+  background: var(--surface);
+  transition: border-color var(--dur-press) var(--ease-standard);
+}
+
+.allLink:hover {
+  border-color: var(--line-strong);
+}
+
+.allWord {
+  font-weight: 600;
+}
+
+.allHint {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+@media (max-width: 767px) {
+  .page {
+    padding-top: 20px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .allList {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

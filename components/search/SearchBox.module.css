@@ -1,3 +1,8 @@
+/* Подсказки позиционируются относительно этой обёртки */
+.root {
+  position: relative;
+}
+
 .search {
   display: flex;
   align-items: stretch;
@@ -66,6 +71,11 @@
   display: none;
 }
 
+.input::placeholder {
+  color: #8a93a6;
+  font-weight: 400;
+}
+
 .submit {
   display: grid;
   place-items: center;
@@ -79,6 +89,128 @@
 
 .submit:hover {
   background: var(--accent-ink);
+}
+
+/* Подсказки и история */
+.popup {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 8px);
+  z-index: 20;
+  max-height: min(480px, 70dvh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-pop);
+}
+
+.popupHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 2px 4px 4px 12px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.clear {
+  min-height: 32px;
+  padding: 0 8px;
+  border-radius: 8px;
+  color: var(--accent-ink);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.clear:hover {
+  background: var(--accent-weak);
+}
+
+.message {
+  padding: 8px 12px 6px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.option {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 14px;
+  min-height: 44px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.option:hover {
+  background: var(--chip);
+}
+
+.option[aria-selected='true'],
+.option[data-default] {
+  background: var(--accent-weak);
+}
+
+.optionIcon {
+  color: var(--muted);
+}
+
+.optionText {
+  min-width: 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.optionText mark {
+  background: none;
+  color: var(--accent-ink);
+}
+
+.optionHint {
+  max-width: 400px;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 14px;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Подсказка по клавишам — только там, где есть клавиатура и мышь */
+.keys {
+  display: none;
+  gap: 16px;
+  margin-top: 6px;
+  padding: 10px 12px 4px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .keys {
+    display: flex;
+  }
+}
+
+.keys kbd {
+  display: inline-block;
+  min-width: 22px;
+  padding: 1px 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--ink-2);
+  font: inherit;
+  font-size: 12px;
+  text-align: center;
 }
 
 @media (max-width: 767px) {
@@ -98,5 +230,27 @@
 
   .submit {
     display: none;
+  }
+
+  /* На телефоне перевод уходит под слово: длинные фразы не обрезаются */
+  .option {
+    grid-template-columns: 18px minmax(0, 1fr);
+    row-gap: 2px;
+  }
+
+  .optionHint {
+    grid-column: 2;
+    max-width: none;
+    text-align: left;
+    white-space: normal;
+    /* Длинный список значений — не больше двух строк */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+
+  .clear {
+    min-height: 44px;
   }
 }

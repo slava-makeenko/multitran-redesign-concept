@@ -30,6 +30,7 @@ interface Props {
   /** Уже отсортированы по числу переводов */
   groups: SubjectGroup[];
   sourceLang: string;
+  targetLang: string;
 }
 
 export function SubjectBrowser({
@@ -37,6 +38,7 @@ export function SubjectBrowser({
   defaultPos,
   groups,
   sourceLang,
+  targetLang,
 }: Props) {
   // Выбранные тематики живут в адресе (?s=aviation,general) — только у активной вкладки
   const pos = useSearchParam('pos') ?? defaultPos;
@@ -133,6 +135,7 @@ export function SubjectBrowser({
             posId={posId}
             group={group}
             sourceLang={sourceLang}
+            targetLang={targetLang}
             open={openGroups[group.subject]}
             onToggle={() =>
               setOpenGroups(current => ({

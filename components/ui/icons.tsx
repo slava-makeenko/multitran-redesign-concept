@@ -91,3 +91,16 @@ export const CheckIcon = (p: IconProps) => (
     <path d="m5 12.5 4.5 4.5L19 7.5" />
   </Icon>
 );
+
+export const ClockIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <circle cx="12" cy="12" r="8.5" />
+    <path d="M12 7.5V12l3 2" />
+  </Icon>
+);
+
+export const PhraseIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M5 6.5h14M5 12h14M5 17.5h8" />
+  </Icon>
+);

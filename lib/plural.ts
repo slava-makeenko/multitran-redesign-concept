@@ -39,3 +39,13 @@ export const DISCUSSION_FORMS: [string, string, string] = [
 export function inSubjects(n: number): string {
   return `в ${n} ${n % 10 === 1 && n % 100 !== 11 ? 'тематике' : 'тематиках'}`;
 }
+export const SUGGESTION_FORMS: [string, string, string] = [
+  'подсказка',
+  'подсказки',
+  'подсказок',
+];
+export const MATCH_FORMS: [string, string, string] = [
+  'совпадение',
+  'совпадения',
+  'совпадений',
+];

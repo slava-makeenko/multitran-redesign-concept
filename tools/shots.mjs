@@ -80,6 +80,8 @@ const METRICS = `(() => {
 const results = [];
 try {
   await send('Page.enable');
+  // Окно headless Chrome не в фокусе, и события focus не приходят — эмулируем фокус
+  await send('Emulation.setFocusEmulationEnabled', { enabled: true });
   for (const job of jobs) {
     await send('Emulation.setDeviceMetricsOverride', { width: job.width, height: job.height, deviceScaleFactor: job.scale ?? 2, mobile: Boolean(job.mobile) });
     await send('Emulation.setUserAgentOverride', {

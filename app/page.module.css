@@ -1,5 +1,6 @@
 .hero {
   padding-top: 72px;
+  padding-bottom: 64px;
   text-align: center;
 }
 
@@ -17,25 +18,30 @@
   font-size: 18px;
 }
 
-.stage {
-  display: inline-block;
-  margin-top: 28px;
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: var(--accent-weak);
-  color: var(--accent-ink);
-  font-size: 14px;
-  font-weight: 600;
+.search {
+  max-width: 720px;
+  margin: 32px auto 0;
+  text-align: left;
 }
 
-.link {
-  text-decoration: underline;
-  text-underline-offset: 3px;
+.examples {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.examplesLabel {
+  margin-right: 4px;
+  color: var(--muted);
+  font-size: 14px;
 }
 
 @media (max-width: 767px) {
   .hero {
     padding-top: 32px;
+    padding-bottom: 40px;
     text-align: left;
   }
 
@@ -46,5 +52,14 @@
   .sub {
     margin-left: 0;
     font-size: 16px;
+  }
+
+  .search {
+    margin-top: 24px;
+  }
+
+  /* Чипы-примеры — полноценные цели касания */
+  .examples a {
+    height: 44px;
   }
 }

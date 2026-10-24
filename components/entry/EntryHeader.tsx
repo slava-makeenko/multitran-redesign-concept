@@ -18,12 +18,13 @@ export function EntryHeader({ entry }: { entry: Entry }) {
         <h1 className={styles.word} lang={pair.sourceLang}>
           {entry.word}
         </h1>
-        {entry.ipa && (
-          <span className={styles.ipa}>
+        {/* У русских статей транскрипции нет, а произношение есть */}
+        <span className={styles.ipa}>
+          {entry.ipa && (
             <span aria-label={`Транскрипция: ${entry.ipa}`}>[{entry.ipa}]</span>
-            <PronounceButton text={entry.word} lang={pair.sourceLang} />
-          </span>
-        )}
+          )}
+          <PronounceButton text={entry.word} lang={pair.sourceLang} />
+        </span>
         <span className={styles.actions}>
           <Link
             className={`${ui.btn} ${ui.ghost}`}

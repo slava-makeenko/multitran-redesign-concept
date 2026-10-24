@@ -11,6 +11,7 @@ import styles from './entry.module.css';
 interface Props {
   translation: Translation;
   sourceLang: string;
+  targetLang: string;
   hidden?: boolean;
   /** Первая строка из раскрытых по «Показать ещё» получает фокус */
   rowRef?: Ref<HTMLLIElement>;
@@ -29,6 +30,7 @@ async function copy(text: string) {
 export function TranslationRow({
   translation,
   sourceLang,
+  targetLang,
   hidden,
   rowRef,
 }: Props) {
@@ -42,11 +44,14 @@ export function TranslationRow({
       tabIndex={rowRef ? -1 : undefined}
     >
       <div className={styles.trMain}>
-        <span className={styles.trText}>{text}</span>
+        <span className={styles.trText} lang={targetLang}>
+          {text}
+        </span>
         {gloss && <span className={styles.trGloss}> — {gloss}</span>}
         {example && (
           <p className={styles.trExample}>
-            <i lang={sourceLang}>{example.source}</i> — {example.target}
+            <i lang={sourceLang}>{example.source}</i> —{' '}
+            <span lang={targetLang}>{example.target}</span>
           </p>
         )}
       </div>

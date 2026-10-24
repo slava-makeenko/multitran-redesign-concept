@@ -18,6 +18,7 @@ interface Props {
   posId: PosId;
   group: SubjectGroup;
   sourceLang: string;
+  targetLang: string;
   open: boolean;
   onToggle: () => void;
   expanded: boolean;
@@ -30,6 +31,7 @@ export function SubjectGroupCard({
   posId,
   group,
   sourceLang,
+  targetLang,
   open,
   onToggle,
   expanded,
@@ -83,6 +85,7 @@ export function SubjectGroupCard({
               key={`${item.text}-${index}`}
               translation={item}
               sourceLang={sourceLang}
+              targetLang={targetLang}
               hidden={!expanded && index >= VISIBLE_ITEMS}
               rowRef={index === VISIBLE_ITEMS ? firstRevealed : undefined}
             />

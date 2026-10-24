@@ -13,7 +13,7 @@ import styles from './entry.module.css';
 const VISIBLE_PHRASES = 4;
 
 export function EntryAside({ entry }: { entry: Entry }) {
-  const { sourceLang } = PAIRS[entry.pair];
+  const { sourceLang, targetLang } = PAIRS[entry.pair];
   const [firstTopic] = entry.forum;
 
   return (
@@ -21,7 +21,7 @@ export function EntryAside({ entry }: { entry: Entry }) {
       {entry.phrases.length > 0 && (
         <section className={`${styles.card} ${styles.asideCard}`}>
           <h2 className={styles.asideTitle}>
-            Фразы с <span lang={sourceLang}>{entry.word}</span>
+            Фразы с «<span lang={sourceLang}>{entry.word}</span>»
           </h2>
           <ul>
             {entry.phrases.slice(0, VISIBLE_PHRASES).map(phrase => (
@@ -29,7 +29,9 @@ export function EntryAside({ entry }: { entry: Entry }) {
                 <span className={styles.phraseSource} lang={sourceLang}>
                   {phrase.source}
                 </span>
-                <span className={styles.phraseTarget}>{phrase.target}</span>
+                <span className={styles.phraseTarget} lang={targetLang}>
+                  {phrase.target}
+                </span>
               </li>
             ))}
           </ul>
