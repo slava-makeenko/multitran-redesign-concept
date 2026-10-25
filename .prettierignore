@@ -8,3 +8,6 @@ AGENTS.md
 README.md
 package-lock.json
 next-env.d.ts
+playwright-report/
+test-results/
+.lighthouseci/

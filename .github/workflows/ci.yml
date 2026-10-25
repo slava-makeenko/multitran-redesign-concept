@@ -38,6 +38,32 @@ jobs:
       # Каталоги с подчёркиванием (_next) не должны проходить через Jekyll
       - run: touch out/.nojekyll
 
+      # Тесты идут по собранному сайту под тем же подпутём, что на Pages.
+      # Упали тесты — job красный, публикации нет.
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Playwright and axe
+        run: npm run test:e2e
+        env:
+          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+
+      - name: Lighthouse CI budgets
+        run: npm run test:lighthouse
+        env:
+          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+
+      - name: Upload test reports
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-reports
+          path: |
+            playwright-report/
+            .lighthouseci/reports/
+          retention-days: 14
+          if-no-files-found: ignore
+
       # Pages на бесплатном тарифе доступен только публичным репозиториям:
       # пока репозиторий приватный, CI проверяет и собирает, но не публикует
       - uses: actions/upload-pages-artifact@v5
