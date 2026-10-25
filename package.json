@@ -9,6 +9,7 @@
     "typecheck": "next typegen && tsc --noEmit",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "test:budget": "node tools/js-budget.mjs out 160",
     "test:e2e": "playwright test",
     "test:lighthouse": "lhci autorun"
   },

@@ -40,6 +40,9 @@ jobs:
 
       # Тесты идут по собранному сайту под тем же подпутём, что на Pages.
       # Упали тесты — job красный, публикации нет.
+      - name: First-load JS budget
+        run: npm run test:budget
+
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
