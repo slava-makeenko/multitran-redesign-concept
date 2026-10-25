@@ -9,6 +9,7 @@ import {
   didYouMean,
   searchPair,
   suggest,
+  type SearchIndex,
   type SearchItem,
   type SearchKind,
 } from '@/lib/search';
@@ -33,9 +34,16 @@ function useQuery(): { q: string; pair: PairId } {
 }
 
 /** Поле поиска в шапке с тем же запросом, что и в адресе */
-export function SearchFromUrl() {
+export function SearchFromUrl({ index }: { index: SearchIndex }) {
   const { q, pair } = useQuery();
-  return <SearchBox key={`${pair}:${q}`} pair={pair} defaultValue={q} />;
+  return (
+    <SearchBox
+      key={`${pair}:${q}`}
+      index={index}
+      pair={pair}
+      defaultValue={q}
+    />
+  );
 }
 
 function ResultLink({ item }: { item: SearchItem }) {
@@ -57,7 +65,7 @@ function ResultLink({ item }: { item: SearchItem }) {
   );
 }
 
-export function SearchResults() {
+export function SearchResults({ index }: { index: SearchIndex }) {
   const { q, pair } = useQuery();
 
   if (!q) {
@@ -71,8 +79,8 @@ export function SearchResults() {
     );
   }
 
-  const results = suggest(q, pair, 30);
-  const guess = results.length ? null : didYouMean(q, pair);
+  const results = suggest(index, q, pair, 30);
+  const guess = results.length ? null : didYouMean(index, q, pair);
 
   return (
     <>

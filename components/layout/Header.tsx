@@ -15,14 +15,10 @@ export function Header({ search }: Props) {
       <div
         className={`container ${styles.row} ${search ? styles.withSearch : ''}`}
       >
-        <Link
-          className={styles.logo}
-          href="/"
-          aria-label="Мультитран — на главную"
-        >
-          <span className={styles.mark} aria-hidden="true">
-            м
-          </span>
+        {/* Имя ссылки — видимый текст «мультитран» (WCAG 2.5.3). Буква в
+            значке нарисована в CSS, чтобы не попадать в видимый текст ссылки */}
+        <Link className={styles.logo} href="/">
+          <span className={styles.mark} aria-hidden="true" />
           мультитран
         </Link>
         {/* Один и тот же поиск: на десктопе в строке шапки, на телефоне второй строкой */}

@@ -1,19 +1,14 @@
 import Link from 'next/link';
 
 import { PageShell } from '@/components/layout/PageShell';
-import { SearchBox } from '@/components/search/SearchBox';
+import { Search } from '@/components/search/Search';
 import { AdSlot } from '@/components/ui/AdSlot';
 import { ChevronRightIcon } from '@/components/ui/icons';
 import { MorphLink } from '@/components/ui/MorphLink';
 import ui from '@/components/ui/ui.module.css';
 import { FORUM_NOW, POPULAR_PAIRS } from '@/data/home';
-import {
-  ENTRIES,
-  entryHref,
-  PAIRS,
-  SUBJECTS,
-  subjectLinks,
-} from '@/lib/dictionary';
+import { entryHref, PAIRS, SUBJECTS } from '@/lib/dictionary';
+import { ENTRIES, subjectLinks } from '@/lib/entries';
 import { count, REPLY_FORMS } from '@/lib/plural';
 
 import styles from './page.module.css';
@@ -65,7 +60,7 @@ export default function HomePage() {
           </p>
 
           <div className={styles.search}>
-            <SearchBox pair="en-ru" size="lg" />
+            <Search pair="en-ru" size="lg" />
             <div className={styles.examples}>
               <span className={styles.examplesLabel}>Например:</span>
               {ENTRIES.map(entry => (

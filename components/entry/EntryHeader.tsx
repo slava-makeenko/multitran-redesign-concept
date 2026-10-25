@@ -32,7 +32,12 @@ export function EntryHeader({ entry }: { entry: Entry }) {
         {/* У русских статей транскрипции нет, а произношение есть */}
         <span className={styles.ipa}>
           {entry.ipa && (
-            <span aria-label={`Транскрипция: ${entry.ipa}`}>[{entry.ipa}]</span>
+            <span
+              className={styles.transcription}
+              aria-label={`Транскрипция: ${entry.ipa}`}
+            >
+              [{entry.ipa}]
+            </span>
           )}
           <PronounceButton text={entry.word} lang={pair.sourceLang} />
         </span>

@@ -9,15 +9,9 @@ import { MainSenses } from '@/components/entry/MainSenses';
 import { PhrasesList } from '@/components/entry/PhrasesList';
 import { SubjectBrowser } from '@/components/entry/SubjectBrowser';
 import { PageShell } from '@/components/layout/PageShell';
-import { SearchBox } from '@/components/search/SearchBox';
-import {
-  countItems,
-  ENTRIES,
-  getEntry,
-  PAIRS,
-  POS_LABELS,
-  sortedGroups,
-} from '@/lib/dictionary';
+import { Search } from '@/components/search/Search';
+import { countItems, PAIRS, POS_LABELS, sortedGroups } from '@/lib/dictionary';
+import { ENTRIES, getEntry } from '@/lib/entries';
 
 import styles from './page.module.css';
 
@@ -97,9 +91,7 @@ export default async function EntryPage({
   };
 
   return (
-    <PageShell
-      search={<SearchBox pair={entry.pair} defaultValue={entry.word} />}
-    >
+    <PageShell search={<Search pair={entry.pair} defaultValue={entry.word} />}>
       <div className={`container ${styles.layout}`}>
         <article className={styles.entry}>
           <EntryHeader entry={entry} />

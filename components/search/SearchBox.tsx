@@ -25,6 +25,7 @@ import {
   normalizeQuery,
   searchPair,
   suggest,
+  type SearchIndex,
   type SearchItem,
 } from '@/lib/search';
 import {
@@ -41,6 +42,8 @@ import styles from './SearchBox.module.css';
 
 interface Props {
   pair: PairId;
+  /** Индекс поиска собран при сборке; см. components/search/Search.tsx */
+  index: SearchIndex;
   defaultValue?: string;
   /** lg — большой поиск на главной: полные названия языков и кнопка «Найти» */
   size?: 'md' | 'lg';
@@ -83,6 +86,7 @@ function Highlight({
 // передаётся через aria-activedescendant. Без JS форма ведёт на /search/.
 export function SearchBox({
   pair: initialPair,
+  index: searchIndex,
   defaultValue = '',
   size = 'md',
 }: Props) {
@@ -120,7 +124,7 @@ export function SearchBox({
     }));
   } else {
     const visited = new Set(history.map(item => item.href + item.text));
-    options = suggest(query, pair).map(item => ({
+    options = suggest(searchIndex, query, pair).map(item => ({
       key: `${item.kind}:${item.text}`,
       item,
       icon: visited.has(item.href + item.text)
@@ -133,7 +137,7 @@ export function SearchBox({
       hintIsTranslation: true,
     }));
     if (!options.length) {
-      const guess = didYouMean(query, pair);
+      const guess = didYouMean(searchIndex, query, pair);
       message = guess
         ? 'Точных совпадений нет. Возможно, вы искали:'
         : 'Ничего не найдено';
@@ -169,7 +173,7 @@ export function SearchBox({
   const announce = (value: string, nextPair: PairId, pairChanged: boolean) => {
     const parts = pairChanged ? [PAIRS[nextPair].name] : [];
     if (normalizeQuery(value).length >= 2) {
-      const found = suggest(value, nextPair).length;
+      const found = suggest(searchIndex, value, nextPair).length;
       parts.push(found ? count(found, SUGGESTION_FORMS) : 'ничего не найдено');
     }
     setStatus(parts.join('. '));
@@ -222,7 +226,7 @@ export function SearchBox({
     }
     // Enter без выбора открывает первую подсказку — она подсвечена в списке.
     // Если подсказок нет, Form переходит на /search/?q=…&pair=…
-    const [first] = suggest(query, pair, 1);
+    const [first] = suggest(searchIndex, query, pair, 1);
     if (first) {
       event.preventDefault();
       choose(first);

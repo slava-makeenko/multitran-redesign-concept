@@ -1,5 +1,5 @@
-import { ENTRIES, entryHint, entryHref, otherPair } from './dictionary';
-import type { PairId } from './types';
+import { entryHint, entryHref, otherPair } from './dictionary';
+import type { Entry, PairId } from './types';
 
 /**
  * Что можно найти:
@@ -44,15 +44,16 @@ export function normalizeQuery(query: string): string {
   return fold(query).replace(/\s+/g, ' ').trim();
 }
 
-interface IndexedItem extends SearchItem {
-  folded: string;
-}
+/** Индекс поиска: собирается при сборке и передаётся в поле поиска пропом */
+export type SearchIndex = SearchItem[];
 
-// Индекс собирается один раз из данных: при сборке для страницы поиска,
-// в браузере — при первом вводе
-const INDEX: IndexedItem[] = (() => {
+/**
+ * Собирает индекс из статей. Вызывается на сервере (lib/entries.ts): так в
+ * браузер попадают только слова, фразы и значения, а не статьи целиком.
+ */
+export function buildSearchIndex(entries: Entry[]): SearchIndex {
   const items: SearchItem[] = [];
-  for (const entry of ENTRIES) {
+  for (const entry of entries) {
     const href = entryHref(entry);
     items.push({
       kind: 'entry',
@@ -89,14 +90,13 @@ const INDEX: IndexedItem[] = (() => {
   const seen = new Set<string>();
   return items
     .sort((a, b) => KIND_ORDER[a.kind] - KIND_ORDER[b.kind])
-    .map(item => ({ ...item, folded: fold(item.text) }))
     .filter(item => {
-      const key = `${item.pair}:${item.folded}`;
+      const key = `${item.pair}:${fold(item.text)}`;
       if (seen.has(key)) return false;
       seen.add(key);
       return true;
     });
-})();
+}
 
 /** 0 — точное совпадение, 1 — начало строки, 2 — начало слова, null — нет */
 function matchAt(folded: string, q: string): [number, number] | null {
@@ -105,14 +105,20 @@ function matchAt(folded: string, q: string): [number, number] | null {
   return index === -1 ? null : [2, index];
 }
 
-export function suggest(query: string, pair: PairId, limit = 6): Suggestion[] {
+export function suggest(
+  index: SearchIndex,
+  query: string,
+  pair: PairId,
+  limit = 6,
+): Suggestion[] {
   const q = normalizeQuery(query);
   if (q.length < 2) return [];
-  return INDEX.flatMap(item => {
-    if (item.pair !== pair) return [];
-    const found = matchAt(item.folded, q);
-    return found ? [{ item, rank: found[0], start: found[1] }] : [];
-  })
+  return index
+    .flatMap(item => {
+      if (item.pair !== pair) return [];
+      const found = matchAt(fold(item.text), q);
+      return found ? [{ item, rank: found[0], start: found[1] }] : [];
+    })
     .sort(
       (a, b) =>
         a.rank - b.rank ||
@@ -167,17 +173,22 @@ function distance(a: string, b: string): number {
 }
 
 /** «Возможно, вы искали»: ближайшее слово с опечаткой не больше одной-двух букв */
-export function didYouMean(query: string, pair: PairId): SearchItem | null {
+export function didYouMean(
+  index: SearchIndex,
+  query: string,
+  pair: PairId,
+): SearchItem | null {
   const q = normalizeQuery(query);
   if (q.length < 3) return null;
   const limit = q.length <= 4 ? 1 : 2;
-  let best: { item: IndexedItem; score: number } | null = null;
-  for (const item of INDEX) {
+  let best: { item: SearchItem; score: number } | null = null;
+  for (const item of index) {
     if (item.pair !== pair) continue;
     // Сравниваем и со словом целиком, и с его началом той же длины, что запрос
+    const folded = fold(item.text);
     const score = Math.min(
-      distance(q, item.folded),
-      distance(q, item.folded.slice(0, q.length)),
+      distance(q, folded),
+      distance(q, folded.slice(0, q.length)),
     );
     if (
       score <= limit &&

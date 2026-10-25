@@ -3,19 +3,19 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { PageShell } from '@/components/layout/PageShell';
-import { SearchBox } from '@/components/search/SearchBox';
+import { Search } from '@/components/search/Search';
 import styles from '@/components/search/SearchResults.module.css';
 import { SwapIcon } from '@/components/ui/icons';
 import ui from '@/components/ui/ui.module.css';
 import {
   countItems,
-  ENTRIES,
   entryHint,
   entryHref,
   isPairId,
   otherPair,
   PAIRS,
 } from '@/lib/dictionary';
+import { ENTRIES } from '@/lib/entries';
 import { count, inSubjects, TRANSLATION_FORMS } from '@/lib/plural';
 import type { PairId } from '@/lib/types';
 
@@ -42,7 +42,7 @@ export default async function DictionaryPage({ params }: PageProps<'/[pair]'>) {
   const entries = ENTRIES.filter(entry => entry.pair === pair);
 
   return (
-    <PageShell search={<SearchBox pair={pair} />}>
+    <PageShell search={<Search pair={pair} />}>
       <div className={`container ${styles.page}`}>
         <h1 className={styles.title}>{name}</h1>
         <p className={styles.summary}>

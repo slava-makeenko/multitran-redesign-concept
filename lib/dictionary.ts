@@ -1,9 +1,5 @@
-import { approach } from '@/data/entries/approach';
-import { approval } from '@/data/entries/approval';
-import { dueDiligence } from '@/data/entries/due-diligence';
-import { leadTime } from '@/data/entries/lead-time';
-import { zakhodNaPosadku } from '@/data/entries/zakhod-na-posadku';
-
+// Справочники и чистые функции без данных словаря: их можно импортировать
+// в клиентские компоненты, статьи при этом в браузер не попадают.
 import type {
   Entry,
   PairId,
@@ -12,15 +8,6 @@ import type {
   SubjectGroup,
   SubjectId,
 } from './types';
-
-// Порядок — как в примерах на главной
-export const ENTRIES: Entry[] = [
-  approach,
-  dueDiligence,
-  zakhodNaPosadku,
-  leadTime,
-  approval,
-];
 
 export const PAIRS: Record<
   PairId,
@@ -79,10 +66,6 @@ export function isPairId(value: string): value is PairId {
   return value in PAIRS;
 }
 
-export function getEntry(pair: string, slug: string): Entry | undefined {
-  return ENTRIES.find(entry => entry.pair === pair && entry.slug === slug);
-}
-
 export function countItems(groups: SubjectGroup[]): number {
   return groups.reduce((sum, group) => sum + group.items.length, 0);
 }
@@ -107,47 +90,6 @@ export function entryHint(entry: Entry): string {
     .slice(0, 3)
     .map(sense => sense.text)
     .join(', ');
-}
-
-export interface SubjectLink {
-  subject: SubjectId;
-  name: string;
-  /** Переводов этой тематики во всех статьях */
-  total: number;
-  /** Статья, где переводов тематики больше всего, — сразу с фильтром */
-  href: string;
-}
-
-/** Тематики для главной: без общей лексики, самые наполненные — первыми */
-export function subjectLinks(): SubjectLink[] {
-  const found = new Map<
-    SubjectId,
-    { total: number; top: number; href: string }
-  >();
-  for (const entry of ENTRIES) {
-    for (const part of entry.parts) {
-      for (const { subject, items } of part.groups) {
-        if (subject === 'general') continue;
-        const current = found.get(subject) ?? { total: 0, top: 0, href: '' };
-        current.total += items.length;
-        if (items.length > current.top) {
-          // Фильтр работает на своей вкладке: для глагола нужен ?pos=verb
-          const pos = part.id === entry.parts[0].id ? '' : `pos=${part.id}&`;
-          current.top = items.length;
-          current.href = `/${entry.pair}/${entry.slug}/?${pos}s=${subject}`;
-        }
-        found.set(subject, current);
-      }
-    }
-  }
-  return [...found]
-    .sort((a, b) => b[1].total - a[1].total)
-    .map(([subject, { total, href }]) => ({
-      subject,
-      name: SUBJECTS[subject],
-      total,
-      href,
-    }));
 }
 
 /**

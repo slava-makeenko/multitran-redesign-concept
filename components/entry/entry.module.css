@@ -49,6 +49,18 @@
   font-size: 18px;
 }
 
+/* Знаки МФА (ə, ʊ, ʃ) — системным шрифтом: иначе ради них браузер
+   скачивает ещё один файл Golos Text (latin-ext, 19 КБ) */
+.transcription {
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    Arial,
+    sans-serif;
+}
+
 .audio {
   display: grid;
   place-items: center;
@@ -597,8 +609,16 @@
     margin: 20px 0 12px;
   }
 
+  /* На узких экранах (320 px) подпись переносится, кнопка не уезжает за край */
   .filtersLabel {
+    flex: 1 1 0;
+    min-width: 0;
     line-height: 1.4;
+    white-space: normal;
+  }
+
+  .filtersButton {
+    flex-shrink: 0;
   }
 
   .groupHead {

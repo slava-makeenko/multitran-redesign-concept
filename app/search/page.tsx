@@ -3,13 +3,14 @@ import Link from 'next/link';
 import { Suspense } from 'react';
 
 import { PageShell } from '@/components/layout/PageShell';
-import { SearchBox } from '@/components/search/SearchBox';
+import { Search } from '@/components/search/Search';
 import {
   SearchFromUrl,
   SearchResults,
 } from '@/components/search/SearchResults';
 import styles from '@/components/search/SearchResults.module.css';
-import { ENTRIES, entryHint, entryHref, PAIRS } from '@/lib/dictionary';
+import { entryHint, entryHref, PAIRS } from '@/lib/dictionary';
+import { ENTRIES, SEARCH_INDEX } from '@/lib/entries';
 
 export const metadata: Metadata = {
   title: 'Поиск',
@@ -21,14 +22,14 @@ export default function SearchPage() {
   return (
     <PageShell
       search={
-        <Suspense fallback={<SearchBox pair="en-ru" />}>
-          <SearchFromUrl />
+        <Suspense fallback={<Search pair="en-ru" />}>
+          <SearchFromUrl index={SEARCH_INDEX} />
         </Suspense>
       }
     >
       <div className={`container ${styles.page}`}>
         <Suspense fallback={<h1 className={styles.title}>Поиск</h1>}>
-          <SearchResults />
+          <SearchResults index={SEARCH_INDEX} />
         </Suspense>
 
         <section className={styles.all} aria-labelledby="all-entries">
