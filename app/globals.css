@@ -28,7 +28,10 @@
   --dur-slow: 250ms;
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
   --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  /* Появление и уход прозрачностью: остаётся и при «уменьшить движение» */
+  --dur-fade: 200ms;
   --shift: 4px;
+  --rise: 12px;
   --press-scale: 0.98;
 }
 
@@ -37,7 +40,28 @@
   :root {
     --dur-base: 0ms;
     --shift: 0px;
+    --rise: 0px;
     --press-scale: 1;
+  }
+}
+
+/* Переход «подсказка → заголовок статьи» (View Transitions API).
+   Где API нет, страница просто открывается без анимации. */
+::view-transition-group(.morph) {
+  animation-duration: var(--dur-slow);
+  animation-timing-function: var(--ease-standard);
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--dur-fast);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }
 
@@ -168,7 +192,8 @@ svg {
   background: var(--ink);
   color: #fff;
   font-weight: 600;
-  transition: top var(--dur-fast) var(--ease-standard);
+  /* Выезд — движение, поэтому --dur-base: при «уменьшить движение» мгновенно */
+  transition: top var(--dur-base) var(--ease-standard);
 }
 
 .skip-link:focus {

@@ -149,3 +149,13 @@ export function subjectLinks(): SubjectLink[] {
       href,
     }));
 }
+
+/**
+ * Имя для View Transitions: одно и то же у слова в подсказке или списке
+ * и у заголовка статьи — по нему браузер связывает их при переходе.
+ * Только для адреса самой статьи, без вкладки.
+ */
+export function morphName(href: string): string | undefined {
+  const match = /^\/(en-ru|ru-en)\/([a-z-]+)\/$/.exec(href);
+  return match ? `entry-${match[1]}-${match[2]}` : undefined;
+}

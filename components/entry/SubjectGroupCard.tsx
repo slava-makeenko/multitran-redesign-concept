@@ -77,29 +77,41 @@ export function SubjectGroupCard({
           <ChevronDownIcon className={styles.groupChevron} size={20} />
         </button>
       </h2>
-      <div id={bodyId} className={styles.groupBody} hidden={!open}>
-        {/* Все переводы есть в HTML; сверх шести скрыты до «Показать ещё» */}
-        <ul>
-          {group.items.map((item, index) => (
-            <TranslationRow
-              key={`${item.text}-${index}`}
-              translation={item}
-              sourceLang={sourceLang}
-              targetLang={targetLang}
-              hidden={!expanded && index >= VISIBLE_ITEMS}
-              rowRef={index === VISIBLE_ITEMS ? firstRevealed : undefined}
-            />
-          ))}
-        </ul>
-        {rest > 0 && !expanded && (
-          <button
-            type="button"
-            className={`${ui.btn} ${ui.soft} ${ui.block} ${styles.more}`}
-            onClick={onExpand}
-          >
-            Показать ещё {count(rest, TRANSLATION_FORMS)}
-          </button>
-        )}
+      {/* Свёрнутая группа остаётся в DOM: высота анимируется через
+          grid-template-rows, а inert убирает её из фокуса и дерева доступности */}
+      <div
+        id={bodyId}
+        className={styles.groupBody}
+        data-open={open}
+        inert={!open}
+      >
+        <div className={styles.groupBodyInner}>
+          {/* Все переводы есть в HTML; сверх шести скрыты до «Показать ещё» */}
+          <ul>
+            {group.items.map((item, index) => (
+              <TranslationRow
+                key={`${item.text}-${index}`}
+                translation={item}
+                sourceLang={sourceLang}
+                targetLang={targetLang}
+                hidden={!expanded && index >= VISIBLE_ITEMS}
+                revealIndex={
+                  index >= VISIBLE_ITEMS ? index - VISIBLE_ITEMS : undefined
+                }
+                rowRef={index === VISIBLE_ITEMS ? firstRevealed : undefined}
+              />
+            ))}
+          </ul>
+          {rest > 0 && !expanded && (
+            <button
+              type="button"
+              className={`${ui.btn} ${ui.soft} ${ui.block} ${styles.more}`}
+              onClick={onExpand}
+            >
+              Показать ещё {count(rest, TRANSLATION_FORMS)}
+            </button>
+          )}
+        </div>
       </div>
     </section>
   );

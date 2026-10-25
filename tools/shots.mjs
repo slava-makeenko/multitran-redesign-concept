@@ -90,6 +90,10 @@ try {
         : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36',
     });
     await send('Emulation.setTouchEmulationEnabled', { enabled: Boolean(job.mobile) });
+    // reducedMotion: true — проверка режима «уменьшить движение»
+    await send('Emulation.setEmulatedMedia', {
+      features: [{ name: 'prefers-reduced-motion', value: job.reducedMotion ? 'reduce' : 'no-preference' }],
+    });
     await send('Page.navigate', { url: job.url });
     await sleep(job.wait ?? 4000);
     const entry = { out: job.out };

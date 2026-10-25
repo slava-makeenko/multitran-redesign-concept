@@ -4,6 +4,7 @@ import { PageShell } from '@/components/layout/PageShell';
 import { SearchBox } from '@/components/search/SearchBox';
 import { AdSlot } from '@/components/ui/AdSlot';
 import { ChevronRightIcon } from '@/components/ui/icons';
+import { MorphLink } from '@/components/ui/MorphLink';
 import ui from '@/components/ui/ui.module.css';
 import { FORUM_NOW, POPULAR_PAIRS } from '@/data/home';
 import {
@@ -68,14 +69,14 @@ export default function HomePage() {
             <div className={styles.examples}>
               <span className={styles.examplesLabel}>Например:</span>
               {ENTRIES.map(entry => (
-                <Link
+                <MorphLink
                   key={entry.slug}
                   className={`${ui.chip} ${ui.chipLine}`}
                   href={entryHref(entry)}
                   lang={PAIRS[entry.pair].sourceLang}
                 >
                   {entry.word}
-                </Link>
+                </MorphLink>
               ))}
             </div>
           </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import type { Ref } from 'react';
+import type { CSSProperties, Ref } from 'react';
 
 import { CopyIcon } from '@/components/ui/icons';
 import { showToast } from '@/components/ui/toast';
@@ -13,6 +13,8 @@ interface Props {
   sourceLang: string;
   targetLang: string;
   hidden?: boolean;
+  /** Номер среди строк за «Показать ещё»: они проявляются по очереди */
+  revealIndex?: number;
   /** Первая строка из раскрытых по «Показать ещё» получает фокус */
   rowRef?: Ref<HTMLLIElement>;
 }
@@ -32,13 +34,16 @@ export function TranslationRow({
   sourceLang,
   targetLang,
   hidden,
+  revealIndex,
   rowRef,
 }: Props) {
   const { text, gloss, example, author } = translation;
+  const revealed = revealIndex !== undefined;
 
   return (
     <li
-      className={styles.tr}
+      className={`${styles.tr} ${revealed ? styles.trReveal : ''}`}
+      style={revealed ? ({ '--i': revealIndex } as CSSProperties) : undefined}
       hidden={hidden}
       ref={rowRef}
       tabIndex={rowRef ? -1 : undefined}

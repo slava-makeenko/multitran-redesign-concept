@@ -19,4 +19,24 @@
   font-size: 15px;
   font-weight: 500;
   box-shadow: var(--shadow-pop);
+  /* Появление снизу; при «уменьшить движение» --rise = 0 — только прозрачность */
+  animation: toast-in var(--dur-fade) var(--ease-standard);
+}
+
+.toast[data-leaving] {
+  animation: toast-out var(--dur-fade) var(--ease-exit) forwards;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--rise));
+  }
+}
+
+@keyframes toast-out {
+  to {
+    opacity: 0;
+    transform: translateY(var(--rise));
+  }
 }

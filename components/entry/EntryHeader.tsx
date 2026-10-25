@@ -1,8 +1,9 @@
 import Link from 'next/link';
+import { ViewTransition } from 'react';
 
 import { PlusIcon, StarIcon } from '@/components/ui/icons';
 import ui from '@/components/ui/ui.module.css';
-import { PAIRS } from '@/lib/dictionary';
+import { entryHref, morphName, PAIRS } from '@/lib/dictionary';
 import type { Entry } from '@/lib/types';
 
 import { PronounceButton } from './PronounceButton';
@@ -17,9 +18,17 @@ export function EntryHeader({ entry }: { entry: Entry }) {
         <Link href={`/${entry.pair}/`}>{pair.name}</Link>
       </p>
       <div className={styles.titleRow}>
-        <h1 className={styles.word} lang={pair.sourceLang}>
-          {entry.word}
-        </h1>
+        {/* То же имя у слова в подсказке и в списках: при переходе оно
+            «перелетает» сюда (View Transitions) */}
+        <ViewTransition
+          name={morphName(entryHref(entry))}
+          share="morph"
+          default="none"
+        >
+          <h1 className={styles.word} lang={pair.sourceLang}>
+            {entry.word}
+          </h1>
+        </ViewTransition>
         {/* У русских статей транскрипции нет, а произношение есть */}
         <span className={styles.ipa}>
           {entry.ipa && (

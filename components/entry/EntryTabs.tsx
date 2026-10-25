@@ -1,6 +1,11 @@
 'use client';
 
-import { useRef, type KeyboardEvent, type ReactNode } from 'react';
+import {
+  useLayoutEffect,
+  useRef,
+  type KeyboardEvent,
+  type ReactNode,
+} from 'react';
 
 import { setSearchParams, useSearchParam } from '@/lib/url-state';
 
@@ -27,6 +32,33 @@ export function EntryTabs({ tabs, panels }: Props) {
     ? (requested as string)
     : defaultId;
   const buttons = useRef<Record<string, HTMLButtonElement | null>>({});
+  const listRef = useRef<HTMLDivElement>(null);
+  const indicatorRef = useRef<HTMLSpanElement>(null);
+
+  // Подчёркивание встаёт под выбранную вкладку до отрисовки кадра.
+  // Первый раз — без анимации: переход включается атрибутом data-indicator
+  // только после того, как подчёркивание уже на месте.
+  useLayoutEffect(() => {
+    const list = listRef.current;
+    const indicator = indicatorRef.current;
+    const button = buttons.current[active];
+    if (!list || !indicator || !button) return;
+    const INSET = 10;
+    const place = () => {
+      const width = (button.offsetWidth - INSET * 2) / 100;
+      indicator.style.transform = `translateX(${button.offsetLeft + INSET}px) scaleX(${width})`;
+    };
+    place();
+    if (!list.dataset.indicator) {
+      void indicator.offsetWidth;
+      list.dataset.indicator = 'ready';
+    }
+    // Ширина вкладок меняется после загрузки шрифта и при повороте экрана
+    const observer = new ResizeObserver(place);
+    observer.observe(list);
+    observer.observe(button);
+    return () => observer.disconnect();
+  }, [active]);
 
   const select = (id: string) => {
     // Фильтр тематик у каждой части речи свой, поэтому при смене вкладки сбрасывается
@@ -51,6 +83,7 @@ export function EntryTabs({ tabs, panels }: Props) {
   return (
     <>
       <div
+        ref={listRef}
         id="entry-tabs"
         className={styles.tabs}
         role="tablist"
@@ -75,6 +108,11 @@ export function EntryTabs({ tabs, panels }: Props) {
             {tab.label} <span className={styles.tabCount}>{tab.count}</span>
           </button>
         ))}
+        <span
+          ref={indicatorRef}
+          className={styles.tabIndicator}
+          aria-hidden="true"
+        />
       </div>
 
       {tabs.map(tab => (

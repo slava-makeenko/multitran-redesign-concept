@@ -7,6 +7,7 @@ import {
   useId,
   useRef,
   useState,
+  ViewTransition,
   type FormEvent,
   type KeyboardEvent,
 } from 'react';
@@ -17,7 +18,7 @@ import {
   SearchIcon,
   SwapIcon,
 } from '@/components/ui/icons';
-import { otherPair, PAIRS } from '@/lib/dictionary';
+import { morphName, otherPair, PAIRS } from '@/lib/dictionary';
 import { count, SUGGESTION_FORMS } from '@/lib/plural';
 import {
   didYouMean,
@@ -191,30 +192,31 @@ export function SearchBox({
     announce(query, nextPair, true);
   };
 
-  const go = (href: string) => {
-    const [path, search = ''] = href.split('?');
-    if (trimSlash(path) === trimSlash(pathname)) {
-      // Та же статья: страница не перерисуется, вкладку переключаем сами
-      setSearchParams({ pos: new URLSearchParams(search).get('pos'), s: null });
-      document.getElementById('entry-tabs')?.scrollIntoView({ block: 'start' });
-      return;
-    }
-    router.push(href);
-  };
+  const isCurrentPage = (href: string) =>
+    trimSlash(href.split('?')[0]) === trimSlash(pathname);
 
   const choose = (item: SearchItem) => {
     addToHistory(item);
+    if (!isCurrentPage(item.href)) {
+      // Подсказки не закрываем: выбранное слово «перелетает» в заголовок
+      // статьи (View Transitions), а поле уходит вместе со старой страницей
+      router.push(item.href);
+      return;
+    }
+    // Та же статья: страница не перерисуется, вкладку переключаем сами
     setQuery(item.text);
     setPair(item.pair);
     setOpen(false);
     setActive(-1);
-    go(item.href);
+    const search = item.href.split('?')[1] ?? '';
+    setSearchParams({ pos: new URLSearchParams(search).get('pos'), s: null });
+    document.getElementById('entry-tabs')?.scrollIntoView({ block: 'start' });
   };
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
-    setOpen(false);
     if (!query.trim()) {
       event.preventDefault();
+      setOpen(false);
       inputRef.current?.focus();
       return;
     }
@@ -224,6 +226,8 @@ export function SearchBox({
     if (first) {
       event.preventDefault();
       choose(first);
+    } else {
+      setOpen(false);
     }
   };
 
@@ -293,6 +297,7 @@ export function SearchBox({
             type="button"
             className={styles.swap}
             aria-label="Поменять языки местами"
+            data-flipped={pair === 'ru-en'}
             onClick={swap}
           >
             <SwapIcon size={16} />
@@ -382,9 +387,21 @@ export function SearchBox({
                 onClick={() => choose(option.item)}
               >
                 <Icon size={18} className={styles.optionIcon} />
-                <span className={styles.optionText} lang={sourceLang}>
-                  <Highlight text={option.item.text} match={option.match} />
-                </span>
+                {/* Слово статьи «перелетает» в её заголовок. У текущей статьи
+                    имя не ставим: заголовок с тем же именем уже на странице */}
+                <ViewTransition
+                  name={
+                    isCurrentPage(option.item.href)
+                      ? undefined
+                      : morphName(option.item.href)
+                  }
+                  share="morph"
+                  default="none"
+                >
+                  <span className={styles.optionText} lang={sourceLang}>
+                    <Highlight text={option.item.text} match={option.match} />
+                  </span>
+                </ViewTransition>
                 <span
                   className={styles.optionHint}
                   lang={option.hintIsTranslation ? targetLang : undefined}

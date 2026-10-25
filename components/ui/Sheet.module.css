@@ -11,15 +11,89 @@
   background: var(--surface);
   color: var(--ink);
   box-shadow: var(--shadow-pop);
+
+  /* Закрытое состояние и уход: вниз за край, быстрее, чем появление.
+     display и overlay с allow-discrete держат диалог на экране, пока идёт
+     анимация закрытия; где этого нет, шторка просто закрывается сразу */
+  --sheet-offset: 100%;
+  transform: translateY(var(--sheet-offset));
+  transition:
+    transform var(--dur-base) var(--ease-exit),
+    overlay var(--dur-base) allow-discrete,
+    display var(--dur-base) allow-discrete;
+}
+
+.sheet[open] {
+  transform: none;
+  transition-duration: var(--dur-slow);
+  transition-timing-function: var(--ease-standard);
+}
+
+@starting-style {
+  .sheet[open] {
+    transform: translateY(var(--sheet-offset));
+  }
 }
 
 .sheet::backdrop {
+  background: rgba(20, 28, 43, 0);
+  transition:
+    background-color var(--dur-base) var(--ease-exit),
+    overlay var(--dur-base) allow-discrete,
+    display var(--dur-base) allow-discrete;
+}
+
+.sheet[open]::backdrop {
   background: rgba(20, 28, 43, 0.45);
+  transition-duration: var(--dur-slow);
+}
+
+@starting-style {
+  .sheet[open]::backdrop {
+    background: rgba(20, 28, 43, 0);
+  }
+}
+
+/* «Уменьшить движение»: без выезда, только прозрачность */
+@media (prefers-reduced-motion: reduce) {
+  .sheet,
+  .sheet::backdrop {
+    transition:
+      opacity var(--dur-fade) linear,
+      overlay var(--dur-fade) allow-discrete,
+      display var(--dur-fade) allow-discrete;
+  }
+
+  .sheet {
+    transform: none;
+    opacity: 0;
+  }
+
+  .sheet[open] {
+    opacity: 1;
+  }
+
+  .sheet::backdrop {
+    background: rgba(20, 28, 43, 0.45);
+    opacity: 0;
+  }
+
+  .sheet[open]::backdrop {
+    opacity: 1;
+  }
+
+  @starting-style {
+    .sheet[open],
+    .sheet[open]::backdrop {
+      opacity: 0;
+    }
+  }
 }
 
 /* На десктопе шторка не нужна, но если откроется — по центру и узкая */
 @media (min-width: 768px) {
   .sheet {
+    --sheet-offset: calc(100% + 24px);
     inset: auto 0 24px;
     max-width: 480px;
     margin: 0 auto;

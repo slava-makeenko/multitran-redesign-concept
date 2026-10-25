@@ -57,7 +57,14 @@
   border-radius: 50%;
   background: var(--accent-weak);
   color: var(--accent);
-  transition: background-color var(--dur-press) var(--ease-standard);
+  transition:
+    background-color var(--dur-press) var(--ease-standard),
+    transform var(--dur-press) var(--ease-standard);
+}
+
+.audio:active,
+.copy:active {
+  transform: scale(var(--press-scale));
 }
 
 .audio:hover {
@@ -73,11 +80,36 @@
 
 /* Вкладки */
 .tabs {
+  position: relative;
   display: flex;
   gap: 4px;
   margin: 26px 0 22px;
   border-bottom: 1px solid var(--line);
   scroll-margin-top: 90px;
+}
+
+/* Подчёркивание одно на все вкладки и переезжает к выбранной: двигается
+   transform, ширина задаётся scaleX от 100 px. Пока JS не загрузился,
+   подчёркивание рисует ::after выбранной вкладки */
+.tabIndicator {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100px;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  pointer-events: none;
+}
+
+.tabs[data-indicator='ready'] .tabIndicator {
+  transition: transform var(--dur-base) var(--ease-standard);
+}
+
+.tabs[data-indicator='ready'] .tab[aria-selected='true']::after {
+  display: none;
 }
 
 .tab {
@@ -219,8 +251,56 @@
   transform: rotate(-90deg);
 }
 
+/* Раскрытие группы: высота через grid-template-rows 0fr → 1fr, без JS.
+   Свёрнутая группа становится visibility: hidden, когда анимация закончилась */
 .groupBody {
-  padding: 0 20px 8px;
+  display: grid;
+  grid-template-rows: 1fr;
+  transition:
+    grid-template-rows var(--dur-base) var(--ease-standard),
+    visibility 0s;
+}
+
+.groupBody[data-open='false'] {
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition:
+    grid-template-rows var(--dur-base) var(--ease-exit),
+    visibility 0s linear var(--dur-base);
+}
+
+/* Отступ снизу — псевдоэлементом, а не padding: padding не схлопывается
+   при 0fr и оставлял бы у свёрнутой группы полоску */
+.groupBodyInner {
+  --pad-bottom: 8px;
+  min-height: 0;
+  overflow: hidden;
+  padding: 0 20px;
+}
+
+.groupBodyInner::after {
+  content: '';
+  display: block;
+  height: var(--pad-bottom);
+}
+
+/* Строки за «Показать ещё» проявляются по очереди, с шагом 20 мс */
+.trReveal {
+  animation: row-in var(--dur-fast) var(--ease-standard) both;
+  animation-delay: calc(var(--i, 0) * 20ms);
+}
+
+@keyframes row-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--shift));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trReveal {
+    animation: none;
+  }
 }
 
 .more {
@@ -281,7 +361,8 @@
   color: var(--muted);
   transition:
     background-color var(--dur-press) var(--ease-standard),
-    color var(--dur-press) var(--ease-standard);
+    color var(--dur-press) var(--ease-standard),
+    transform var(--dur-press) var(--ease-standard);
 }
 
 .copy:hover {
@@ -524,8 +605,9 @@
     padding: 14px 16px;
   }
 
-  .groupBody {
-    padding: 0 16px 6px;
+  .groupBodyInner {
+    --pad-bottom: 6px;
+    padding: 0 16px;
   }
 
   .trGloss,

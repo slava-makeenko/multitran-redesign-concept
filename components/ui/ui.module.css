@@ -64,7 +64,15 @@
   font-size: 14px;
   font-weight: 500;
   white-space: nowrap;
-  transition: background-color var(--dur-press) var(--ease-standard);
+  transition:
+    background-color var(--dur-press) var(--ease-standard),
+    color var(--dur-press) var(--ease-standard),
+    transform var(--dur-press) var(--ease-standard);
+}
+
+/* Лёгкое сжатие при нажатии; при «уменьшить движение» --press-scale = 1 */
+.chip:active {
+  transform: scale(var(--press-scale));
 }
 
 .chip:hover {
