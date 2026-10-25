@@ -66,4 +66,38 @@ test.describe('Вёрстка', () => {
     const box = await slot.boundingBox();
     expect(box?.height).toBeGreaterThanOrEqual(90);
   });
+
+  for (const path of ['?ads=sim', 'en-ru/approach/?ads=sim']) {
+    test(`?ads=sim: реклама приходит позже, страница не сдвигается: /${path}`, async ({
+      page,
+    }) => {
+      // Суммарный сдвиг вёрстки (CLS) без учёта сдвигов после ввода
+      await page.addInitScript(() => {
+        const state = { cls: 0 };
+        Object.assign(window, { layoutShift: state });
+        new PerformanceObserver(list => {
+          for (const entry of list.getEntries() as unknown as {
+            value: number;
+            hadRecentInput: boolean;
+          }[]) {
+            if (!entry.hadRecentInput) state.cls += entry.value;
+          }
+        }).observe({ type: 'layout-shift', buffered: true });
+      });
+      await page.goto(path);
+      const slot = page.locator('[data-ad-slot]:visible').first();
+      const before = await slot.boundingBox();
+
+      await expect(
+        slot.getByText('Здесь могла быть ваша реклама'),
+      ).toBeVisible();
+      expect(await slot.boundingBox()).toEqual(before);
+      const cls = await page.evaluate(
+        () =>
+          (window as unknown as { layoutShift: { cls: number } }).layoutShift
+            .cls,
+      );
+      expect(cls).toBeLessThan(0.001);
+    });
+  }
 });

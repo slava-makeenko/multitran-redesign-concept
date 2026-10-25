@@ -1,3 +1,4 @@
+import { AdFill } from './AdFill';
 import styles from './AdSlot.module.css';
 
 // mobile — подпись, когда на телефоне слот другого размера
@@ -33,6 +34,7 @@ export function AdSlot({ size, className = '' }: Props) {
           label
         )}
       </span>
+      <AdFill />
     </div>
   );
 }

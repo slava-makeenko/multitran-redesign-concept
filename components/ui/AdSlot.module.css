@@ -1,4 +1,5 @@
 .slot {
+  position: relative;
   display: grid;
   place-items: center;
   text-align: center;
@@ -17,6 +18,20 @@
   display: block;
   color: var(--ink-2);
   font-size: 14px;
+}
+
+/* «Реклама» в режиме ?ads=sim: ложится поверх слота и не меняет его размер */
+.fill {
+  position: absolute;
+  inset: -1px;
+  display: grid;
+  place-items: center;
+  padding: 12px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #fde7c3, #f7c873);
+  color: #4d3300;
+  font-size: 15px;
+  font-weight: 700;
 }
 
 .rect {
