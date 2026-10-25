@@ -1,0 +1,278 @@
+{
+ "home-mobile": {
+  "url": "https://www.multitran.com/",
+  "rules": 9,
+  "nodes": 92,
+  "byImpact": {
+   "serious": 71,
+   "critical": 3,
+   "moderate": 18
+  },
+  "violations": [
+   {
+    "id": "target-size",
+    "impact": "serious",
+    "nodes": 65,
+    "help": "All touch targets must be 24px large, or leave sufficient space"
+   },
+   {
+    "id": "region",
+    "impact": "moderate",
+    "nodes": 16,
+    "help": "All page content should be contained by landmarks"
+   },
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 3,
+    "help": "Elements must meet minimum color contrast ratio thresholds"
+   },
+   {
+    "id": "select-name",
+    "impact": "critical",
+    "nodes": 2,
+    "help": "Select element must have an accessible name"
+   },
+   {
+    "id": "tabindex",
+    "impact": "serious",
+    "nodes": 2,
+    "help": "Elements should not have tabindex greater than zero"
+   },
+   {
+    "id": "image-alt",
+    "impact": "critical",
+    "nodes": 1,
+    "help": "Images must have alternative text"
+   },
+   {
+    "id": "landmark-one-main",
+    "impact": "moderate",
+    "nodes": 1,
+    "help": "Document should have one main landmark"
+   },
+   {
+    "id": "link-name",
+    "impact": "serious",
+    "nodes": 1,
+    "help": "Links must have discernible text"
+   },
+   {
+    "id": "page-has-heading-one",
+    "impact": "moderate",
+    "nodes": 1,
+    "help": "Page should contain a level-one heading"
+   }
+  ]
+ },
+ "home-desktop": {
+  "url": "https://www.multitran.com/",
+  "rules": 9,
+  "nodes": 93,
+  "byImpact": {
+   "serious": 67,
+   "critical": 3,
+   "moderate": 23
+  },
+  "violations": [
+   {
+    "id": "target-size",
+    "impact": "serious",
+    "nodes": 62,
+    "help": "All touch targets must be 24px large, or leave sufficient space"
+   },
+   {
+    "id": "region",
+    "impact": "moderate",
+    "nodes": 19,
+    "help": "All page content should be contained by landmarks"
+   },
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 2,
+    "help": "Elements must meet minimum color contrast ratio thresholds"
+   },
+   {
+    "id": "landmark-one-main",
+    "impact": "moderate",
+    "nodes": 2,
+    "help": "Document should have one main landmark"
+   },
+   {
+    "id": "page-has-heading-one",
+    "impact": "moderate",
+    "nodes": 2,
+    "help": "Page should contain a level-one heading"
+   },
+   {
+    "id": "select-name",
+    "impact": "critical",
+    "nodes": 2,
+    "help": "Select element must have an accessible name"
+   },
+   {
+    "id": "tabindex",
+    "impact": "serious",
+    "nodes": 2,
+    "help": "Elements should not have tabindex greater than zero"
+   },
+   {
+    "id": "image-alt",
+    "impact": "critical",
+    "nodes": 1,
+    "help": "Images must have alternative text"
+   },
+   {
+    "id": "link-name",
+    "impact": "serious",
+    "nodes": 1,
+    "help": "Links must have discernible text"
+   }
+  ]
+ },
+ "term-mobile": {
+  "url": "https://www.multitran.com/m.exe?s=approach&l1=1&l2=2",
+  "rules": 9,
+  "nodes": 460,
+  "byImpact": {
+   "serious": 322,
+   "critical": 8,
+   "moderate": 130
+  },
+  "violations": [
+   {
+    "id": "target-size",
+    "impact": "serious",
+    "nodes": 297,
+    "help": "All touch targets must be 24px large, or leave sufficient space"
+   },
+   {
+    "id": "region",
+    "impact": "moderate",
+    "nodes": 129,
+    "help": "All page content should be contained by landmarks"
+   },
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 18,
+    "help": "Elements must meet minimum color contrast ratio thresholds"
+   },
+   {
+    "id": "image-alt",
+    "impact": "critical",
+    "nodes": 6,
+    "help": "Images must have alternative text"
+   },
+   {
+    "id": "link-in-text-block",
+    "impact": "serious",
+    "nodes": 5,
+    "help": "Links must be distinguishable without relying on color"
+   },
+   {
+    "id": "tabindex",
+    "impact": "serious",
+    "nodes": 2,
+    "help": "Elements should not have tabindex greater than zero"
+   },
+   {
+    "id": "label",
+    "impact": "critical",
+    "nodes": 1,
+    "help": "Form elements must have labels"
+   },
+   {
+    "id": "landmark-one-main",
+    "impact": "moderate",
+    "nodes": 1,
+    "help": "Document should have one main landmark"
+   },
+   {
+    "id": "select-name",
+    "impact": "critical",
+    "nodes": 1,
+    "help": "Select element must have an accessible name"
+   }
+  ]
+ },
+ "term-desktop": {
+  "url": "https://www.multitran.com/m.exe?s=approach&l1=1&l2=2",
+  "rules": 11,
+  "nodes": 503,
+  "byImpact": {
+   "serious": 349,
+   "critical": 8,
+   "moderate": 146
+  },
+  "violations": [
+   {
+    "id": "target-size",
+    "impact": "serious",
+    "nodes": 318,
+    "help": "All touch targets must be 24px large, or leave sufficient space"
+   },
+   {
+    "id": "region",
+    "impact": "moderate",
+    "nodes": 136,
+    "help": "All page content should be contained by landmarks"
+   },
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 17,
+    "help": "Elements must meet minimum color contrast ratio thresholds"
+   },
+   {
+    "id": "landmark-one-main",
+    "impact": "moderate",
+    "nodes": 10,
+    "help": "Document should have one main landmark"
+   },
+   {
+    "id": "link-in-text-block",
+    "impact": "serious",
+    "nodes": 10,
+    "help": "Links must be distinguishable without relying on color"
+   },
+   {
+    "id": "image-alt",
+    "impact": "critical",
+    "nodes": 6,
+    "help": "Images must have alternative text"
+   },
+   {
+    "id": "tabindex",
+    "impact": "serious",
+    "nodes": 2,
+    "help": "Elements should not have tabindex greater than zero"
+   },
+   {
+    "id": "aria-command-name",
+    "impact": "serious",
+    "nodes": 1,
+    "help": "ARIA commands must have an accessible name"
+   },
+   {
+    "id": "frame-title",
+    "impact": "serious",
+    "nodes": 1,
+    "help": "Frames must have an accessible name"
+   },
+   {
+    "id": "label",
+    "impact": "critical",
+    "nodes": 1,
+    "help": "Form elements must have labels"
+   },
+   {
+    "id": "select-name",
+    "impact": "critical",
+    "nodes": 1,
+    "help": "Select element must have an accessible name"
+   }
+  ]
+ }
+}

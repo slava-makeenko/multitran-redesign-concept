@@ -30,20 +30,22 @@
 </head>
 <body>
   <h1>Мультитран: до и после</h1>
-  <p class="lead">Неофициальный концепт редизайна. Слева — сайт 23.10.2026, справа — макет. Переводы в макете учебные.</p>
+  <p class="lead">Неофициальный концепт редизайна. Слева — сайт 23.10.2026, справа — реализация концепта на GitHub Pages 25.10.2026. Переводы в концепте учебные. Цифры — Lighthouse 12.8.2, телефон, медиана трёх прогонов; axe — WCAG 2.2 A/AA.</p>
 
   <div class="block">
     <h2>Страница слова на телефоне</h2>
     <div class="pair">
       <div class="col phone"><span class="tag tag--before">До</span><img src="../docs/before/term-mobile.png"></div>
-      <div class="col phone"><span class="tag tag--after">После</span><img src="mockups/term-mobile.png"></div>
+      <div class="col phone"><span class="tag tag--after">После</span><img src="../docs/after/term-mobile.png"></div>
       <div class="notes">
         <ul>
+          <li>Производительность: <span class="num">60</span> → <span class="num">100</span>, доступность: <span class="num">64</span> → <span class="num">100</span></li>
+          <li>Блокировка потока (TBT): <span class="num">1762 мс</span> → <span class="num">22 мс</span></li>
+          <li>Сдвиги вёрстки (CLS): <span class="num">0,123</span> → <span class="num">0,002</span>, и с «рекламой» тоже</li>
+          <li>Вес: <span class="num">2,9 МБ</span>, 721 запрос → <span class="num">0,3 МБ</span>, 28 запросов</li>
           <li>Текст за краем экрана: <span class="num">57 %</span> → <span class="num">0</span></li>
           <li>Целей касания меньше 24 px: <span class="num">86 %</span> → <span class="num">0</span></li>
-          <li>Сначала основные значения, тематики свёрнуты со счётчиком</li>
-          <li>Фильтр тематик — шторкой с флажками</li>
-          <li>Место под рекламу 320 × 100 зарезервировано — без сдвигов вёрстки</li>
+          <li>Нарушений axe: <span class="num">460</span> → <span class="num">0</span></li>
         </ul>
       </div>
     </div>
@@ -53,18 +55,18 @@
     <h2>Страница слова на десктопе</h2>
     <div class="pair">
       <div class="col desk"><span class="tag tag--before">До</span><img src="../docs/before/term-desktop.png"></div>
-      <div class="col desk"><span class="tag tag--after">После</span><img src="mockups/term-desktop.png"></div>
+      <div class="col desk"><span class="tag tag--after">После</span><img src="../docs/after/term-desktop.png"></div>
     </div>
-    <p class="disclaimer">Заголовков h2: 0 → 9 (основные значения, тематики, боковые блоки) — по тематикам можно перемещаться со скринридера. Место под рекламу 300 × 250 зарезервировано справа.</p>
+    <p class="disclaimer">Заголовков h2: 0 → 9 (основные значения, тематики, боковые блоки) — по тематикам можно перемещаться со скринридера. Место под рекламу 300 × 250 зарезервировано справа. Нарушений axe: 503 → 0.</p>
   </div>
 
   <div class="block">
     <h2>Главная</h2>
     <div class="pair">
       <div class="col desk"><span class="tag tag--before">До</span><img src="../docs/before/home-desktop.png"></div>
-      <div class="col desk"><span class="tag tag--after">После</span><img src="mockups/home-desktop-search.png"></div>
+      <div class="col desk"><span class="tag tag--after">После</span><img src="../docs/after/home-desktop-search.png"></div>
     </div>
-    <p class="disclaimer">Поиск — главный элемент: пара языков с переключателем, подсказки с переводом и историей, управление с клавиатуры.</p>
+    <p class="disclaimer">Поиск — главный элемент: пара языков с переключателем, подсказки с переводом и историей, управление с клавиатуры. На телефоне: производительность 63 → 100, TBT 1462 → 47 мс.</p>
   </div>
 </body>
 </html>
