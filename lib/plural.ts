@@ -49,3 +49,8 @@ export const MATCH_FORMS: [string, string, string] = [
   'совпадения',
   'совпадений',
 ];
+export const REPLY_FORMS: [string, string, string] = [
+  'ответ',
+  'ответа',
+  'ответов',
+];

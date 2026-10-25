@@ -1,12 +1,10 @@
 import Link from 'next/link';
 
 import ui from '@/components/ui/ui.module.css';
-import { count } from '@/lib/plural';
+import { count, REPLY_FORMS } from '@/lib/plural';
 import type { ForumTopic } from '@/lib/types';
 
 import styles from './entry.module.css';
-
-const REPLY_FORMS: [string, string, string] = ['ответ', 'ответа', 'ответов'];
 
 export function ForumList({ topics }: { topics: ForumTopic[] }) {
   return (

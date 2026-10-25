@@ -121,6 +121,16 @@
     font-size: 24px;
   }
 
+  /* Пометка «статья» или число переводов — третьей строкой, слово не сжимается */
+  .result {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .kind {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
   .allList {
     grid-template-columns: minmax(0, 1fr);
   }

@@ -104,3 +104,9 @@ export const PhraseIcon = (p: IconProps) => (
     <path d="M5 6.5h14M5 12h14M5 17.5h8" />
   </Icon>
 );
+
+export const ChevronRightIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="m9.5 6 6 6-6 6" />
+  </Icon>
+);

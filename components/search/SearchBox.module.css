@@ -91,6 +91,52 @@
   background: var(--accent-ink);
 }
 
+/* Большой поиск на главной */
+.large {
+  height: 72px;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+.large:focus-within {
+  box-shadow:
+    0 0 0 4px rgba(29, 95, 208, 0.14),
+    var(--shadow);
+}
+
+.large .pair {
+  gap: 6px;
+  padding: 0 10px 0 12px;
+}
+
+.large .lang {
+  height: 44px;
+  padding: 0 10px;
+  font-size: 15px;
+}
+
+.large .swap {
+  width: 36px;
+  height: 36px;
+}
+
+.large .swap::after {
+  inset: -4px;
+}
+
+.large .input {
+  padding: 0 18px;
+  font-size: 19px;
+}
+
+.large .submit {
+  margin: 8px;
+  padding: 0 24px;
+  border-radius: 11px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
 /* Подсказки и история */
 .popup {
   position: absolute;
@@ -252,5 +298,35 @@
 
   .clear {
     min-height: 44px;
+  }
+
+  /* Большой поиск на телефоне — столбиком: языки, поле, кнопка во всю ширину */
+  .large {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .large .pair {
+    justify-content: space-between;
+    padding: 6px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .large .lang {
+    flex: 1;
+  }
+
+  .large .input {
+    flex: 0 0 56px;
+    height: 56px;
+    padding: 0 16px;
+    font-size: 18px;
+  }
+
+  .large .submit {
+    display: grid;
+    height: 48px;
+    margin: 0 8px 8px;
   }
 }

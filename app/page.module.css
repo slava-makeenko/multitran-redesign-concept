@@ -1,6 +1,7 @@
+/* Главная. Значения перенесены из design/mockups/styles.css */
+
 .hero {
-  padding-top: 72px;
-  padding-bottom: 64px;
+  padding: 72px 0 8px;
   text-align: center;
 }
 
@@ -13,14 +14,14 @@
 
 .sub {
   max-width: 620px;
-  margin: 14px auto 0;
+  margin: 14px auto 32px;
   color: var(--ink-2);
   font-size: 18px;
 }
 
 .search {
-  max-width: 720px;
-  margin: 32px auto 0;
+  max-width: 860px;
+  margin: 0 auto;
   text-align: left;
 }
 
@@ -28,20 +29,192 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  margin-top: 16px;
+  margin-top: 18px;
 }
 
 .examplesLabel {
-  margin-right: 4px;
+  margin-right: 2px;
   color: var(--muted);
   font-size: 14px;
+}
+
+/* Секции */
+.section {
+  padding-top: 40px;
+}
+
+.sectionHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.sectionTitle {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.sectionLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  color: var(--accent-ink);
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.sectionLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Популярные словари */
+.pairs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.pairCard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 100%;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  transition:
+    border-color var(--dur-press) var(--ease-standard),
+    box-shadow var(--dur-press) var(--ease-standard);
+}
+
+.pairCard:hover {
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow);
+}
+
+.flags {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.flag {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--surface);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.flag + .flag {
+  margin-left: -8px;
+}
+
+/* Второй кружок заходит на первый: код в первом сдвинут влево, чтобы буквы
+   не прятались под соседом */
+.flag:first-child {
+  padding-right: 8px;
+}
+
+.pairText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.pairName {
+  font-weight: 600;
+}
+
+.pairMeta {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.arrow {
+  margin-left: auto;
+  color: var(--muted);
+}
+
+/* Тематики */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Форум */
+.forum {
+  padding: 4px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.forum li + li {
+  border-top: 1px solid var(--line);
+}
+
+.forumItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 0;
+}
+
+.forumText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.forumTitle {
+  font-weight: 600;
+}
+
+.forumItem:hover .forumTitle {
+  color: var(--accent-ink);
+}
+
+.forumMeta {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.badge {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  height: 28px;
+  margin-left: auto;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: var(--accent-weak);
+  color: var(--accent-ink);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.badgeOk {
+  background: #e3f4ea;
+  color: var(--ok);
 }
 
 @media (max-width: 767px) {
   .hero {
     padding-top: 32px;
-    padding-bottom: 40px;
     text-align: left;
   }
 
@@ -50,16 +223,52 @@
   }
 
   .sub {
-    margin-left: 0;
+    margin: 10px 0 20px;
     font-size: 16px;
   }
 
-  .search {
-    margin-top: 24px;
+  /* Примеры переносятся, а не уезжают за край: текст в чипах виден целиком */
+  .examples {
+    justify-content: flex-start;
   }
 
-  /* Чипы-примеры — полноценные цели касания */
-  .examples a {
+  .examples a,
+  .chips a {
     height: 44px;
+  }
+
+  .section {
+    padding-top: 32px;
+  }
+
+  .sectionTitle {
+    font-size: 20px;
+  }
+
+  .sectionLink {
+    min-height: 44px;
+  }
+
+  .pairs {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .pairCard {
+    min-height: 64px;
+    padding: 14px 16px;
+  }
+
+  .forum {
+    padding: 0 16px;
+  }
+
+  .forumItem {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .badge {
+    margin-left: 0;
   }
 }

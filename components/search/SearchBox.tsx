@@ -41,6 +41,8 @@ import styles from './SearchBox.module.css';
 interface Props {
   pair: PairId;
   defaultValue?: string;
+  /** lg — большой поиск на главной: полные названия языков и кнопка «Найти» */
+  size?: 'md' | 'lg';
 }
 
 interface Option {
@@ -78,7 +80,11 @@ function Highlight({
 
 // Комбобокс по WAI-ARIA 1.2: фокус остаётся в поле, активная подсказка
 // передаётся через aria-activedescendant. Без JS форма ведёт на /search/.
-export function SearchBox({ pair: initialPair, defaultValue = '' }: Props) {
+export function SearchBox({
+  pair: initialPair,
+  defaultValue = '',
+  size = 'md',
+}: Props) {
   const router = useRouter();
   const pathname = usePathname();
   const id = useId();
@@ -93,7 +99,10 @@ export function SearchBox({ pair: initialPair, defaultValue = '' }: Props) {
 
   const listId = `${id}-list`;
   const optionId = (index: number) => `${id}-option-${index}`;
-  const { source, target, name } = PAIRS[pair];
+  const large = size === 'lg';
+  const { name, ...labels } = PAIRS[pair];
+  const source = large ? labels.sourceName : labels.source;
+  const target = large ? labels.targetName : labels.target;
   const typing = normalizeQuery(query).length >= 2;
 
   // До двух символов — история, дальше — подсказки; без совпадений — ближайшее
@@ -272,7 +281,7 @@ export function SearchBox({ pair: initialPair, defaultValue = '' }: Props) {
     >
       <Form
         action="/search/"
-        className={styles.search}
+        className={`${styles.search} ${large ? styles.large : ''}`}
         role="search"
         onSubmit={onSubmit}
       >
@@ -305,7 +314,7 @@ export function SearchBox({ pair: initialPair, defaultValue = '' }: Props) {
           name="q"
           type="search"
           enterKeyHint="search"
-          placeholder="Слово или фраза"
+          placeholder={large ? 'Слово, термин или фраза' : 'Слово или фраза'}
           lang={PAIRS[pair].sourceLang}
           autoComplete="off"
           spellCheck={false}
@@ -326,8 +335,12 @@ export function SearchBox({ pair: initialPair, defaultValue = '' }: Props) {
           onKeyDown={onKeyDown}
         />
         <input type="hidden" name="pair" value={pair} />
-        <button type="submit" className={styles.submit} aria-label="Найти">
-          <SearchIcon size={18} />
+        <button
+          type="submit"
+          className={styles.submit}
+          aria-label={large ? undefined : 'Найти'}
+        >
+          {large ? 'Найти' : <SearchIcon size={18} />}
         </button>
       </Form>
 

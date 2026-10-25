@@ -13,7 +13,9 @@ export function EntryHeader({ entry }: { entry: Entry }) {
 
   return (
     <div>
-      <p className={styles.crumbs}>{pair.name}</p>
+      <p className={styles.crumbs}>
+        <Link href={`/${entry.pair}/`}>{pair.name}</Link>
+      </p>
       <div className={styles.titleRow}>
         <h1 className={styles.word} lang={pair.sourceLang}>
           {entry.word}

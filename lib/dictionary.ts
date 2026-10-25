@@ -26,8 +26,12 @@ export const PAIRS: Record<
   PairId,
   {
     name: string;
+    /** Коды для компактного поиска в шапке */
     source: string;
     target: string;
+    /** Полные названия — для большого поиска на главной */
+    sourceName: string;
+    targetName: string;
     /** Язык слова и примеров — для атрибута lang, чтобы скринридер читал правильно */
     sourceLang: string;
     targetLang: string;
@@ -37,6 +41,8 @@ export const PAIRS: Record<
     name: 'Англо-русский словарь',
     source: 'EN',
     target: 'RU',
+    sourceName: 'Английский',
+    targetName: 'Русский',
     sourceLang: 'en',
     targetLang: 'ru',
   },
@@ -44,6 +50,8 @@ export const PAIRS: Record<
     name: 'Русско-английский словарь',
     source: 'RU',
     target: 'EN',
+    sourceName: 'Русский',
+    targetName: 'Английский',
     sourceLang: 'ru',
     targetLang: 'en',
   },
@@ -99,4 +107,45 @@ export function entryHint(entry: Entry): string {
     .slice(0, 3)
     .map(sense => sense.text)
     .join(', ');
+}
+
+export interface SubjectLink {
+  subject: SubjectId;
+  name: string;
+  /** Переводов этой тематики во всех статьях */
+  total: number;
+  /** Статья, где переводов тематики больше всего, — сразу с фильтром */
+  href: string;
+}
+
+/** Тематики для главной: без общей лексики, самые наполненные — первыми */
+export function subjectLinks(): SubjectLink[] {
+  const found = new Map<
+    SubjectId,
+    { total: number; top: number; href: string }
+  >();
+  for (const entry of ENTRIES) {
+    for (const part of entry.parts) {
+      for (const { subject, items } of part.groups) {
+        if (subject === 'general') continue;
+        const current = found.get(subject) ?? { total: 0, top: 0, href: '' };
+        current.total += items.length;
+        if (items.length > current.top) {
+          // Фильтр работает на своей вкладке: для глагола нужен ?pos=verb
+          const pos = part.id === entry.parts[0].id ? '' : `pos=${part.id}&`;
+          current.top = items.length;
+          current.href = `/${entry.pair}/${entry.slug}/?${pos}s=${subject}`;
+        }
+        found.set(subject, current);
+      }
+    }
+  }
+  return [...found]
+    .sort((a, b) => b[1].total - a[1].total)
+    .map(([subject, { total, href }]) => ({
+      subject,
+      name: SUBJECTS[subject],
+      total,
+      href,
+    }));
 }
